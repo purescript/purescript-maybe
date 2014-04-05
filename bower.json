@@ -9,10 +9,15 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "node_modules",
     "bower_components",
-    "examples",
     "externs",
-    "js"
-  ]
+    "js",
+    "node_modules",
+    "tmp",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "devDependencies": {
+    "purescript-quickcheck": "*"
+  }
 }
