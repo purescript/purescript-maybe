@@ -1,7 +1,5 @@
 module Data.Maybe where
 
-  import Prelude
-
   data Maybe a = Nothing | Just a
 
   maybe :: forall a b. b -> (a -> b) -> Maybe a -> b
@@ -16,26 +14,41 @@ module Data.Maybe where
 
   isNothing :: forall a. Maybe a -> Boolean
   isNothing = maybe true (const false)
-
-  instance monadMaybe :: Monad Maybe where
-    return = Just
-    (>>=) m f = maybe Nothing f m
-
-  instance applicativeMaybe :: Applicative Maybe where
-    pure = Just
-    (<*>) (Just fn) x = fn <$> x
-    (<*>) Nothing _ = Nothing
-
+  
   instance functorMaybe :: Functor Maybe where
     (<$>) fn (Just x) = Just (fn x)
-    (<$>) _ _ = Nothing
+    (<$>) _  _        = Nothing
+  
+  instance applyMaybe :: Apply Maybe where
+    (<*>) (Just fn) x = fn <$> x
+    (<*>) Nothing   _ = Nothing
+    
+  instance applicativeMaybe :: Applicative Maybe where
+    pure = Just
+    
+  instance alternativeMaybe :: Alternative Maybe where
+    empty = Nothing
+    (<|>) Nothing r = r
+    (<|>) l       _ = l
+    
+  instance bindMaybe :: Bind Maybe where
+    (>>=) (Just x) k = k x
+    (>>=) Nothing  _ = Nothing
+
+  instance monadMaybe :: Monad Maybe
 
   instance showMaybe :: (Show a) => Show (Maybe a) where
     show (Just x) = "Just " ++ (show x)
-    show Nothing = "Nothing"
+    show Nothing  = "Nothing"
 
   instance eqMaybe :: (Eq a) => Eq (Maybe a) where
-    (==) Nothing Nothing = true
+    (==) Nothing   Nothing   = true
     (==) (Just a1) (Just a2) = a1 == a2
-    (==) _ _ = false
+    (==) _         _         = false
     (/=) a b = not (a == b)
+
+  instance ordMaybe :: (Ord a) => Ord (Maybe a) where
+    compare (Just x) (Just y) = compare x y
+    compare Nothing  Nothing  = EQ
+    compare Nothing  _        = LT
+    compare _        Nothing  = GT
