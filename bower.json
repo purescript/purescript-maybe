@@ -1,6 +1,5 @@
 {
   "name": "purescript-maybe",
-  "version": "0.1.0",
   "homepage": "https://github.com/purescript/purescript-maybe",
   "description": "Optional values",
   "keywords": [
@@ -13,7 +12,9 @@
     "externs",
     "js",
     "node_modules",
+    "tests",
     "tmp",
+    "bower.json",
     "Gruntfile.js",
     "package.json"
   ],
