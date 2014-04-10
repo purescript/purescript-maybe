@@ -10,6 +10,7 @@ module.exports = function(grunt) {
     ],
     
     clean: {
+      dedupe: ["bower_components/purescript-maybe"],
       tests: ["tmp"],
       lib: ["js", "externs"]
     },
@@ -39,7 +40,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-purescript");
   grunt.loadNpmTasks("grunt-execute");
   
-  grunt.registerTask("test", ["clean:tests", "psc:tests", "execute:tests"]);
-  grunt.registerTask("make", ["pscMake", "dotPsci"]);
+  grunt.registerTask("test", ["clean:dedupe", "clean:tests", "psc:tests", "execute:tests"]);
+  grunt.registerTask("make", ["clean:dedupe", "pscMake", "dotPsci"]);
   grunt.registerTask("default", ["test", "make"]);
 };
