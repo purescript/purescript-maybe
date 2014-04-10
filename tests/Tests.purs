@@ -7,24 +7,26 @@ import Test.QuickCheck
 import Test.QuickCheck.Functions
 import Test.QuickCheck.Classes
 
+type Ty = Maybe Number
+
 main = do
 
   let ty = Just 0
 
   trace "test equality"
   check1 $ \n -> Just n == Just n
-  assert $ Nothing == Nothing :: Maybe Number
+  assert $ Nothing == Nothing :: Ty
 
   trace "test inequality"
-  check1 $ \n -> not $ Just n == Nothing
-  check1 $ \n -> not $ Nothing == Just n
-  check1 $ \n -> not $ Just n == Just (n + 1)
+  check1 $ \n -> Just n  /= Nothing
+  check1 $ \n -> Nothing /= Just n
+  check1 $ \n -> Just n  /= Just (n + 1)
   
   trace "test order"
   check2 $ \x y -> compare (Just x) (Just y) == compare x y
   check1 $ \x -> compare Nothing (Just x) == LT
   check1 $ \x -> compare (Just x) Nothing == GT
-  check1 $ \x -> compare Nothing (Nothing :: Maybe Number) == EQ
+  check1 $ \x -> compare Nothing (Nothing :: Ty) == EQ
 
   trace "maybe should transform a value wrapped in a Just"
   check1 $ \n -> maybe 0 negate (Just n) == -n
