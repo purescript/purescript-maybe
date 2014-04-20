@@ -9,9 +9,8 @@
   "ignore": [
     "**/.*",
     "bower_components",
-    "externs",
-    "js",
     "node_modules",
+    "output",
     "tests",
     "tmp",
     "bower.json",
