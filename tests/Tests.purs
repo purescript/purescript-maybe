@@ -63,7 +63,8 @@ check2 = quickCheck
 instance arbAToMaybeB :: (Arb (a -> b)) => Arb (a -> Maybe b) where
   arb = do
     f <- arb
-    return $ \x -> Just (f x)
+    jn <- arb
+    return $ \x -> if jn then Just (f x) else Nothing
 
 instance showAToMaybeB :: (Arb (a -> b)) => Show (a -> Maybe b) where
   show _ = "<a -> Maybe b>"
