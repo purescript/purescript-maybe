@@ -11,36 +11,17 @@ module.exports = function(grunt) {
     
     clean: {
       dedupe: ["bower_components/purescript-maybe"],
-      tests: ["tmp"],
       lib: ["js", "externs"]
     },
   
     pscMake: ["<%=libFiles%>"],
-    dotPsci: ["<%=libFiles%>"],
-  
-    psc: {
-      tests: {
-        options: {
-          module: ["Main"],
-          main: true
-        },
-        src: ["tests/Tests.purs", "<%=libFiles%>"],
-        dest: "tmp/tests.js"
-      }
-    },
-    
-    execute: {
-      tests: {
-        src: "tmp/tests.js"
-      }
-    }      
+    dotPsci: ["<%=libFiles%>"]
+
   });
 
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-purescript");
-  grunt.loadNpmTasks("grunt-execute");
   
-  grunt.registerTask("test", ["clean:dedupe", "clean:tests", "psc:tests", "execute:tests"]);
   grunt.registerTask("make", ["clean:dedupe", "pscMake", "dotPsci"]);
-  grunt.registerTask("default", ["test", "make"]);
+  grunt.registerTask("default", ["make"]);
 };
