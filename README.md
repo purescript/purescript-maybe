@@ -1,10 +1,13 @@
-# Data.Maybe
+# Module Documentation
+
+## Module Data.Maybe
 
 ### Types
 
     data Maybe a where
       Nothing :: Maybe a
       Just :: a -> Maybe a
+
 
 ### Type Class Instances
 
@@ -25,6 +28,7 @@
     instance ordMaybe :: (Ord a) => Ord (Maybe a)
 
     instance showMaybe :: (Show a) => Show (Maybe a)
+
 
 ### Values
 
