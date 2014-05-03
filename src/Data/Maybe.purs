@@ -38,7 +38,7 @@ module Data.Maybe where
   instance monadMaybe :: Monad Maybe
 
   instance showMaybe :: (Show a) => Show (Maybe a) where
-    show (Just x) = "Just " ++ (show x)
+    show (Just x) = "Just (" ++ show x ++ ")"
     show Nothing  = "Nothing"
 
   instance eqMaybe :: (Eq a) => Eq (Maybe a) where
