@@ -39,3 +39,10 @@
     isNothing :: forall a. Maybe a -> Prim.Boolean
 
     maybe :: forall a b. b -> (a -> b) -> Maybe a -> b
+
+
+## Module Data.Maybe.Unsafe
+
+### Values
+
+    fromJust :: forall a. Maybe a -> a
