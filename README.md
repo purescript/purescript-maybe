@@ -34,9 +34,9 @@
 
     fromMaybe :: forall a. a -> Maybe a -> a
 
-    isJust :: forall a. Maybe a -> Prim.Boolean
+    isJust :: forall a. Maybe a -> Boolean
 
-    isNothing :: forall a. Maybe a -> Prim.Boolean
+    isNothing :: forall a. Maybe a -> Boolean
 
     maybe :: forall a b. b -> (a -> b) -> Maybe a -> b
 
