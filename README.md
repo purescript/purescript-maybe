@@ -11,6 +11,8 @@
 
 ### Type Class Instances
 
+    instance altMaybe :: Alt Maybe
+
     instance alternativeMaybe :: Alternative Maybe
 
     instance applicativeMaybe :: Applicative Maybe
@@ -25,7 +27,11 @@
 
     instance monadMaybe :: Monad Maybe
 
+    instance monadPlusMaybe :: MonadPlus Maybe
+
     instance ordMaybe :: (Ord a) => Ord (Maybe a)
+
+    instance plusMaybe :: Plus Maybe
 
     instance showMaybe :: (Show a) => Show (Maybe a)
 
