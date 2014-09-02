@@ -1,9 +1,10 @@
 module Data.Maybe where
 
 import Control.Alt
-import Control.Plus
 import Control.Alternative
+import Control.Extend
 import Control.MonadPlus
+import Control.Plus
 
 data Maybe a = Nothing | Just a
 
@@ -47,6 +48,15 @@ instance bindMaybe :: Bind Maybe where
 instance monadMaybe :: Monad Maybe
 
 instance monadPlusMaybe :: MonadPlus Maybe
+
+instance extendMaybe :: Extend Maybe where
+  (<<=) _ Nothing  = Nothing
+  (<<=) f x        = Just $ f x
+
+instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a) where
+  (<>) Nothing  x        = x
+  (<>) x        Nothing  = x
+  (<>) (Just x) (Just y) = Just (x <> y)
 
 instance showMaybe :: (Show a) => Show (Maybe a) where
   show (Just x) = "Just (" ++ show x ++ ")"

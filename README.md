@@ -23,6 +23,8 @@
 
     instance eqMaybe :: (Eq a) => Eq (Maybe a)
 
+    instance extendMaybe :: Extend Maybe
+
     instance functorMaybe :: Functor Maybe
 
     instance monadMaybe :: Monad Maybe
@@ -32,6 +34,8 @@
     instance ordMaybe :: (Ord a) => Ord (Maybe a)
 
     instance plusMaybe :: Plus Maybe
+
+    instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a)
 
     instance showMaybe :: (Show a) => Show (Maybe a)
 
