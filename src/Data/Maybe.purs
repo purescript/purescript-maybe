@@ -46,13 +46,13 @@ isNothing = maybe true (const false)
 -- | contents of a `Just` with the `<$>` operator:
 -- |
 -- | ``` purescript
--- | Just x <$> f == Just (f x)
+-- | f <$> Just x == Just (f x)
 -- | ```
 -- |
 -- | `Nothing` values are left untouched:
 -- |
 -- | ``` purescript
--- | Nothing <$> f == Nothing
+-- | f <$> Nothing == Nothing
 -- | ```
 instance functorMaybe :: Functor Maybe where
   (<$>) fn (Just x) = Just (fn x)
