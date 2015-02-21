@@ -16,8 +16,8 @@ data Maybe a = Nothing | Just a
 -- | is applied to the value inside the `Just` and the result is returned.
 -- |
 -- | ``` purescript
--- | maybe default f Nothing == default
--- | maybe default f (Just x) == f x
+-- | maybe x f Nothing == x
+-- | maybe x f (Just y) == f y
 -- | ```
 maybe :: forall a b. b -> (a -> b) -> Maybe a -> b
 maybe b _ Nothing = b
@@ -28,8 +28,8 @@ maybe _ f (Just a) = f a
 -- | `Just` is returned.
 -- |
 -- | ``` purescript
--- | fromMaybe default Nothing == default
--- | fromMaybe default (Just x) == x
+-- | fromMaybe x Nothing == x
+-- | fromMaybe x (Just y) == y
 -- | ```
 fromMaybe :: forall a. a -> Maybe a -> a
 fromMaybe a = maybe a (id :: forall a. a -> a)

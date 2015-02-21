@@ -25,8 +25,8 @@ value is `Nothing` the default value is returned, otherwise the function
 is applied to the value inside the `Just` and the result is returned.
 
 ``` purescript
-maybe default f Nothing == default
-maybe default f (Just x) == f x
+maybe x f Nothing == x
+maybe x f (Just y) == f y
 ```
 
 #### `fromMaybe`
@@ -40,8 +40,8 @@ Takes a default value, and a `Maybe` value. If the `Maybe` value is
 `Just` is returned.
 
 ``` purescript
-fromMaybe default Nothing == default
-fromMaybe default (Just x) == x
+fromMaybe x Nothing == x
+fromMaybe x (Just y) == y
 ```
 
 #### `isJust`
