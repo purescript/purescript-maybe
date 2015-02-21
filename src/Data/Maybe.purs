@@ -42,8 +42,8 @@ isJust = maybe false (const true)
 isNothing :: forall a. Maybe a -> Boolean
 isNothing = maybe true (const false)
 
--- | The `Functor` instance for `Maybe` allows functions to transform the
--- | contents of a `Just` with the `<$>` operator:
+-- | The `Functor` instance allows functions to transform the contents of a
+-- | `Just` with the `<$>` operator:
 -- |
 -- | ``` purescript
 -- | f <$> Just x == Just (f x)
@@ -58,8 +58,8 @@ instance functorMaybe :: Functor Maybe where
   (<$>) fn (Just x) = Just (fn x)
   (<$>) _  _        = Nothing
 
--- | The `Apply` instance for `Maybe` allows functions contained within a `Just`
--- | to transform a value contained within a `Just` using the `(<*>)` operator:
+-- | The `Apply` instance allows functions contained within a `Just` to
+-- | transform a value contained within a `Just` using the `(<*>)` operator:
 -- |
 -- | ``` purescript
 -- | Just f <*> Just x == Just (f x)
@@ -72,8 +72,9 @@ instance functorMaybe :: Functor Maybe where
 -- | Nothing <$> Just x == Nothing
 -- | ```
 -- |
--- | Combining `Functor`'s' `<$>` with `Apply`'s `<*>` can be used to pass
--- | multiple `Maybe` values to a function that does not usually expect them:
+-- | Combining `Functor`'s' `<$>` with `Apply`'s `<*>` can be used transform a
+-- | pure function to take `Maybe`-typed arguments so `f :: a -> b -> c`
+-- | becomes `f :: Maybe a -> Maybe b -> Maybe c`:
 -- |
 -- | ``` purescript
 -- | f <$> Just x <*> Just y == Just (f x y)
@@ -92,11 +93,12 @@ instance applyMaybe :: Apply Maybe where
   (<*>) (Just fn) x = fn <$> x
   (<*>) Nothing   _ = Nothing
 
--- | The `Applicative` instance for `Maybe` enables lifting of values into
--- | `Maybe` with the `pure` function:
+-- | The `Applicative` instance enables lifting of values into `Maybe` with the
+-- | `pure` or `return` function (`return` is an alias for `pure`):
 -- |
 -- | ``` purescript
 -- | pure x :: Maybe _ == Just x
+-- | return x :: Maybe _ == Just x
 -- | ```
 -- |
 -- | Combining `Functor`'s' `<$>` with `Apply`'s `<*>` and `Applicative`'s
@@ -114,8 +116,8 @@ instance applyMaybe :: Apply Maybe where
 instance applicativeMaybe :: Applicative Maybe where
   pure = Just
 
--- | The `Alt` instance for `Maybe` allows for a choice to be made between two
--- | `Maybe` values with the `<|>` operator, where the first `Just` encountered
+-- | The `Alt` instance allows for a choice to be made between two `Maybe`
+-- | values with the `<|>` operator, where the first `Just` encountered
 -- | is taken.
 -- |
 -- | ``` purescript
@@ -127,8 +129,7 @@ instance altMaybe :: Alt Maybe where
   (<|>) Nothing r = r
   (<|>) l       _ = l
 
--- | The `Plus` instance for `Maybe` enables a `Maybe` value to be constructed
--- | from no other values with the `empty` function:
+-- | The `Plus` instance provides a default `Maybe` value:
 -- |
 -- | ``` purescript
 -- | empty :: Maybe _ == Nothing
@@ -136,12 +137,12 @@ instance altMaybe :: Alt Maybe where
 instance plusMaybe :: Plus Maybe where
   empty = Nothing
 
--- | The `Alternative` instance for `Maybe` guarantees that there are both
--- | `Applicative` and `Plus` instances for `Maybe`.
+-- | The `Alternative` instance guarantees that there are both `Applicative` and
+-- | `Plus` instances for `Maybe`.
 instance alternativeMaybe :: Alternative Maybe
 
--- | The `Bind` instance for `Maybe` allows sequencing of `Maybe` values and
--- | functions that return a `Maybe` by using the `>>=` operator:
+-- | The `Bind` instance allows sequencing of `Maybe` values and functions that
+-- | return a `Maybe` by using the `>>=` operator:
 -- |
 -- | ``` purescript
 -- | Just x >>= f = f x
@@ -151,10 +152,31 @@ instance bindMaybe :: Bind Maybe where
   (>>=) (Just x) k = k x
   (>>=) Nothing  _ = Nothing
 
+-- | The `Monad` instance guarantees that there are both `Applicative` and
+-- | `Bind` instances for `Maybe`. This also enables the `do` syntactic sugar:
+-- |
+-- | ``` purescript
+-- | do
+-- |   x' <- x
+-- |   y' <- y
+-- |   pure (f x' y')
+-- | ```
+-- |
+-- | Which is equivalent to:
+-- |
+-- | ``` purescript
+-- | x >>= (\x' -> y >>= (\y' -> pure (f x' y')))
+-- | ```
 instance monadMaybe :: Monad Maybe
 
+-- | The `MonadPlus` instance guarantees that there are both `Monad` and
+-- | `Alternative` instances for `Maybe`.
 instance monadPlusMaybe :: MonadPlus Maybe
 
+-- | The `Extend` instance allows sequencing of `Maybe` values and functions
+-- | that accept a `Maybe a` and return a non-`Maybe` result using the
+-- | `<<=` operator.
+-- |
 -- | ``` purescript
 -- | f <<= Nothing = Nothing
 -- | f <<= Just x = Just (f x)
@@ -163,6 +185,11 @@ instance extendMaybe :: Extend Maybe where
   (<<=) _ Nothing  = Nothing
   (<<=) f x        = Just (f x)
 
+-- | The `Semigroup` instance enables use of the operator `<>` on `Maybe` values
+-- | whenever there is a `Semigroup` instance for the type the `Maybe` contains.
+-- | The exact behaviour of `<>` depends on the "inner" `Semigroup` instance,
+-- | but generally captures the notion of appending or combining things.
+-- |
 -- | ``` purescript
 -- | Just x <> Just y = Just (x <> y)
 -- | Just x <> Nothing = Just x
@@ -174,6 +201,9 @@ instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a) where
   (<>) x        Nothing  = x
   (<>) (Just x) (Just y) = Just (x <> y)
 
+-- | The `Show` instance allows `Maybe` values to be rendered as a string with
+-- | `show` whenever there is an `Show` instance for the type the `Maybe`
+-- | contains.
 instance showMaybe :: (Show a) => Show (Maybe a) where
   show (Just x) = "Just (" ++ show x ++ ")"
   show Nothing  = "Nothing"
