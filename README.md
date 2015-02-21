@@ -4,15 +4,21 @@
 
 #### `Maybe`
 
+``` purescript
+data Maybe a
+  = Nothing 
+  | Just a
+```
+
 The `Maybe` type is used to represent optional values and can be seen as
 something like a type-safe `null`, where `Nothing` is `null` and `Just x`
 is the non-null value `x`.
 
-    data Maybe a
-      = Nothing 
-      | Just a
-
 #### `maybe`
+
+``` purescript
+maybe :: forall a b. b -> (a -> b) -> Maybe a -> b
+```
 
 Takes a default value, a function, and a `Maybe` value. If the `Maybe`
 value is `Nothing` the default value is returned, otherwise the function
@@ -23,9 +29,11 @@ maybe default f Nothing == default
 maybe default f (Just x) == f x
 ```
 
-    maybe :: forall a b. b -> (a -> b) -> Maybe a -> b
-
 #### `fromMaybe`
+
+``` purescript
+fromMaybe :: forall a. a -> Maybe a -> a
+```
 
 Takes a default value, and a `Maybe` value. If the `Maybe` value is
 `Nothing` the default value is returned, otherwise the value inside the
@@ -36,21 +44,27 @@ fromMaybe default Nothing == default
 fromMaybe default (Just x) == x
 ```
 
-    fromMaybe :: forall a. a -> Maybe a -> a
-
 #### `isJust`
+
+``` purescript
+isJust :: forall a. Maybe a -> Boolean
+```
 
 Returns `true` when the `Maybe` value was constructed with `Just`.
 
-    isJust :: forall a. Maybe a -> Boolean
-
 #### `isNothing`
+
+``` purescript
+isNothing :: forall a. Maybe a -> Boolean
+```
 
 Returns `true` when the `Maybe` value is `Nothing`.
 
-    isNothing :: forall a. Maybe a -> Boolean
-
 #### `functorMaybe`
+
+``` purescript
+instance functorMaybe :: Functor Maybe
+```
 
 The `Functor` instance allows functions to transform the contents of a
 `Just` with the `<$>` operator:
@@ -65,9 +79,11 @@ f <$> Just x == Just (f x)
 f <$> Nothing == Nothing
 ```
 
-    instance functorMaybe :: Functor Maybe
-
 #### `applyMaybe`
+
+``` purescript
+instance applyMaybe :: Apply Maybe
+```
 
 The `Apply` instance allows functions contained within a `Just` to
 transform a value contained within a `Just` using the `(<*>)` operator:
@@ -101,9 +117,11 @@ f <$> Just x <*> Nothing == Nothing
 f <$> Nothing <*> Nothing == Nothing
 ```
 
-    instance applyMaybe :: Apply Maybe
-
 #### `applicativeMaybe`
+
+``` purescript
+instance applicativeMaybe :: Applicative Maybe
+```
 
 The `Applicative` instance enables lifting of values into `Maybe` with the
 `pure` or `return` function (`return` is an alias for `pure`):
@@ -126,9 +144,11 @@ Even though `pure = Just` it is recommended to use `pure` in situations
 like this as it allows the choice of `Applicative` to be changed later
 without having to go through and replace `Just` with a new constructor.
 
-    instance applicativeMaybe :: Applicative Maybe
-
 #### `altMaybe`
+
+``` purescript
+instance altMaybe :: Alt Maybe
+```
 
 The `Alt` instance allows for a choice to be made between two `Maybe`
 values with the `<|>` operator, where the first `Just` encountered
@@ -140,9 +160,11 @@ Nothing <|> Just y == Just y
 Nothing <|> Nothing == Nothing
 ```
 
-    instance altMaybe :: Alt Maybe
-
 #### `plusMaybe`
+
+``` purescript
+instance plusMaybe :: Plus Maybe
+```
 
 The `Plus` instance provides a default `Maybe` value:
 
@@ -150,16 +172,20 @@ The `Plus` instance provides a default `Maybe` value:
 empty :: Maybe _ == Nothing
 ```
 
-    instance plusMaybe :: Plus Maybe
-
 #### `alternativeMaybe`
+
+``` purescript
+instance alternativeMaybe :: Alternative Maybe
+```
 
 The `Alternative` instance guarantees that there are both `Applicative` and
 `Plus` instances for `Maybe`.
 
-    instance alternativeMaybe :: Alternative Maybe
-
 #### `bindMaybe`
+
+``` purescript
+instance bindMaybe :: Bind Maybe
+```
 
 The `Bind` instance allows sequencing of `Maybe` values and functions that
 return a `Maybe` by using the `>>=` operator:
@@ -169,9 +195,11 @@ Just x >>= f = f x
 Nothing >>= f = Nothing
 ```
 
-    instance bindMaybe :: Bind Maybe
-
 #### `monadMaybe`
+
+``` purescript
+instance monadMaybe :: Monad Maybe
+```
 
 The `Monad` instance guarantees that there are both `Applicative` and
 `Bind` instances for `Maybe`. This also enables the `do` syntactic sugar:
@@ -189,16 +217,20 @@ Which is equivalent to:
 x >>= (\x' -> y >>= (\y' -> pure (f x' y')))
 ```
 
-    instance monadMaybe :: Monad Maybe
-
 #### `monadPlusMaybe`
+
+``` purescript
+instance monadPlusMaybe :: MonadPlus Maybe
+```
 
 The `MonadPlus` instance guarantees that there are both `Monad` and
 `Alternative` instances for `Maybe`.
 
-    instance monadPlusMaybe :: MonadPlus Maybe
-
 #### `extendMaybe`
+
+``` purescript
+instance extendMaybe :: Extend Maybe
+```
 
 The `Extend` instance allows sequencing of `Maybe` values and functions
 that accept a `Maybe a` and return a non-`Maybe` result using the
@@ -209,9 +241,11 @@ f <<= Nothing = Nothing
 f <<= Just x = Just (f x)
 ```
 
-    instance extendMaybe :: Extend Maybe
-
 #### `semigroupMaybe`
+
+``` purescript
+instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a)
+```
 
 The `Semigroup` instance enables use of the operator `<>` on `Maybe` values
 whenever there is a `Semigroup` instance for the type the `Maybe` contains.
@@ -225,25 +259,31 @@ Nothing <> Just y = Just y
 Nothing <> Nothing = Nothing
 ```
 
-    instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a)
-
 #### `showMaybe`
+
+``` purescript
+instance showMaybe :: (Show a) => Show (Maybe a)
+```
 
 The `Show` instance allows `Maybe` values to be rendered as a string with
 `show` whenever there is an `Show` instance for the type the `Maybe`
 contains.
 
-    instance showMaybe :: (Show a) => Show (Maybe a)
-
 #### `eqMaybe`
+
+``` purescript
+instance eqMaybe :: (Eq a) => Eq (Maybe a)
+```
 
 The `Eq` instance allows `Maybe` values to be checked for equality with
 `==` and inequality with `/=` whenever there is an `Eq` instance for the
 type the `Maybe` contains.
 
-    instance eqMaybe :: (Eq a) => Eq (Maybe a)
-
 #### `ordMaybe`
+
+``` purescript
+instance ordMaybe :: (Ord a) => Ord (Maybe a)
+```
 
 The `Ord` instance allows `Maybe` values to be compared with
 `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
@@ -251,15 +291,15 @@ the type the `Maybe` contains.
 
 `Nothing` is considered to be less than any `Just` value.
 
-    instance ordMaybe :: (Ord a) => Ord (Maybe a)
-
 
 ## Module Data.Maybe.Unsafe
 
 #### `fromJust`
 
+``` purescript
+fromJust :: forall a. Maybe a -> a
+```
+
 A partial function that extracts the value from the `Just` data
 constructor. Passing `Nothing` to `fromJust` will throw an error at
 runtime.
-
-    fromJust :: forall a. Maybe a -> a
