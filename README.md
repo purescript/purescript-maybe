@@ -95,11 +95,11 @@ Just f <*> Just x == Just (f x)
 `Nothing` values are left untouched:
 
 ``` purescript
-Just f <$> Nothing == Nothing
-Nothing <$> Just x == Nothing
+Just f <*> Nothing == Nothing
+Nothing <*> Just x == Nothing
 ```
 
-Combining `Functor`'s' `<$>` with `Apply`'s `<*>` can be used transform a
+Combining `Functor`'s `<$>` with `Apply`'s `<*>` can be used transform a
 pure function to take `Maybe`-typed arguments so `f :: a -> b -> c`
 becomes `f :: Maybe a -> Maybe b -> Maybe c`:
 
@@ -131,7 +131,7 @@ pure x :: Maybe _ == Just x
 return x :: Maybe _ == Just x
 ```
 
-Combining `Functor`'s' `<$>` with `Apply`'s `<*>` and `Applicative`'s
+Combining `Functor`'s `<$>` with `Apply`'s `<*>` and `Applicative`'s
 `pure` can be used to pass a mixture of `Maybe` and non-`Maybe` typed
 values to a function that does not usually expect them, by using `pure`
 for any value that is not already `Maybe` typed:
