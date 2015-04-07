@@ -291,6 +291,13 @@ the type the `Maybe` contains.
 
 `Nothing` is considered to be less than any `Just` value.
 
+#### `boundedMaybe`
+
+``` purescript
+instance boundedMaybe :: (Bounded a) => Bounded (Maybe a)
+```
+
+
 
 ## Module Data.Maybe.Unsafe
 
