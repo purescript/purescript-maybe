@@ -227,3 +227,7 @@ instance ordMaybe :: (Ord a) => Ord (Maybe a) where
   compare Nothing  Nothing  = EQ
   compare Nothing  _        = LT
   compare _        Nothing  = GT
+
+instance boundedMaybe :: (Bounded a) => Bounded (Maybe a) where
+  top = Just top
+  bottom = Nothing
