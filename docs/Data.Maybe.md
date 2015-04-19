@@ -298,18 +298,12 @@ instance boundedMaybe :: (Bounded a) => Bounded (Maybe a)
 ```
 
 
-
-## Module Data.Maybe.Unsafe
-
-#### `fromJust`
+#### `monoidMaybe`
 
 ``` purescript
-fromJust :: forall a. Maybe a -> a
+instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a)
 ```
 
-A partial function that extracts the value from the `Just` data
-constructor. Passing `Nothing` to `fromJust` will throw an error at
-runtime.
 
 
 

@@ -1,10 +1,11 @@
 module Data.Maybe where
 
-import Control.Alt
-import Control.Alternative
-import Control.Extend
-import Control.MonadPlus
-import Control.Plus
+import Control.Alt (Alt)
+import Control.Alternative (Alternative)
+import Control.Extend (Extend)
+import Control.MonadPlus (MonadPlus)
+import Control.Plus (Plus)
+import Data.Monoid (Monoid)
 
 -- | The `Maybe` type is used to represent optional values and can be seen as
 -- | something like a type-safe `null`, where `Nothing` is `null` and `Just x`
@@ -231,3 +232,6 @@ instance ordMaybe :: (Ord a) => Ord (Maybe a) where
 instance boundedMaybe :: (Bounded a) => Bounded (Maybe a) where
   top = Just top
   bottom = Nothing
+
+instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a) where
+  mempty = Nothing

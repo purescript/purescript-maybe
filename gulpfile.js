@@ -22,12 +22,22 @@ gulp.task("jsvalidate", ["make"], function () {
     .pipe(jsvalidate());
 });
 
-gulp.task("docs", function () {
-  return gulp.src("src/**/*.purs")
-    .pipe(plumber())
-    .pipe(purescript.pscDocs())
-    .pipe(gulp.dest("docs/MODULE.md"));
-});
+var docTasks = [];
+
+var docTask = function(name) {
+  var taskName = "docs-" + name.toLowerCase();
+  gulp.task(taskName, function () {
+    return gulp.src("src/" + name.replace(/\./g, "/") + ".purs")
+      .pipe(plumber())
+      .pipe(purescript.pscDocs())
+      .pipe(gulp.dest("docs/" + name + ".md"));
+  });
+  docTasks.push(taskName);
+};
+
+["Data.Maybe", "Data.Maybe.Unsafe", "Data.Maybe.First", "Data.Maybe.Last"].forEach(docTask);
+
+gulp.task("docs", docTasks);
 
 gulp.task("dotpsci", function () {
   return gulp.src(paths)

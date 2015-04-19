@@ -12,4 +12,10 @@ bower install purescript-maybe
 
 ## Module documentation
 
-[`docs/MODULE.md`](docs/MODULE.md)
+- [Data.Maybe](docs/Data.Maybe.md)
+- [Data.Maybe.Unsafe](docs/Data.Maybe.Unsafe.md)
+
+### Maybe monoids
+
+- [Data.Maybe.First](docs/Data.Maybe.First.md)
+- [Data.Maybe.Last](docs/Data.Maybe.Last.md)
