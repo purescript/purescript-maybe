@@ -56,11 +56,11 @@ isNothing = maybe true (const false)
 -- | f <$> Nothing == Nothing
 -- | ```
 instance functorMaybe :: Functor Maybe where
-  (<$>) fn (Just x) = Just (fn x)
-  (<$>) _  _        = Nothing
+  map fn (Just x) = Just (fn x)
+  map _  _        = Nothing
 
 -- | The `Apply` instance allows functions contained within a `Just` to
--- | transform a value contained within a `Just` using the `(<*>)` operator:
+-- | transform a value contained within a `Just` using the `apply` operator:
 -- |
 -- | ``` purescript
 -- | Just f <*> Just x == Just (f x)
@@ -91,8 +91,8 @@ instance functorMaybe :: Functor Maybe where
 -- | f <$> Nothing <*> Nothing == Nothing
 -- | ```
 instance applyMaybe :: Apply Maybe where
-  (<*>) (Just fn) x = fn <$> x
-  (<*>) Nothing   _ = Nothing
+  apply (Just fn) x = fn <$> x
+  apply Nothing   _ = Nothing
 
 -- | The `Applicative` instance enables lifting of values into `Maybe` with the
 -- | `pure` or `return` function (`return` is an alias for `pure`):
@@ -127,8 +127,8 @@ instance applicativeMaybe :: Applicative Maybe where
 -- | Nothing <|> Nothing == Nothing
 -- | ```
 instance altMaybe :: Alt Maybe where
-  (<|>) Nothing r = r
-  (<|>) l       _ = l
+  alt Nothing r = r
+  alt l       _ = l
 
 -- | The `Plus` instance provides a default `Maybe` value:
 -- |
@@ -150,8 +150,8 @@ instance alternativeMaybe :: Alternative Maybe
 -- | Nothing >>= f = Nothing
 -- | ```
 instance bindMaybe :: Bind Maybe where
-  (>>=) (Just x) k = k x
-  (>>=) Nothing  _ = Nothing
+  bind (Just x) k = k x
+  bind Nothing  _ = Nothing
 
 -- | The `Monad` instance guarantees that there are both `Applicative` and
 -- | `Bind` instances for `Maybe`. This also enables the `do` syntactic sugar:
@@ -183,8 +183,8 @@ instance monadPlusMaybe :: MonadPlus Maybe
 -- | f <<= Just x = Just (f x)
 -- | ```
 instance extendMaybe :: Extend Maybe where
-  (<<=) _ Nothing  = Nothing
-  (<<=) f x        = Just (f x)
+  extend _ Nothing  = Nothing
+  extend f x        = Just (f x)
 
 -- | The `Semigroup` instance enables use of the operator `<>` on `Maybe` values
 -- | whenever there is a `Semigroup` instance for the type the `Maybe` contains.
@@ -198,9 +198,9 @@ instance extendMaybe :: Extend Maybe where
 -- | Nothing <> Nothing = Nothing
 -- | ```
 instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a) where
-  (<>) Nothing  x        = x
-  (<>) x        Nothing  = x
-  (<>) (Just x) (Just y) = Just (x <> y)
+  append Nothing  x        = x
+  append x        Nothing  = x
+  append (Just x) (Just y) = Just (x <> y)
 
 -- | The `Show` instance allows `Maybe` values to be rendered as a string with
 -- | `show` whenever there is an `Show` instance for the type the `Maybe`
@@ -213,10 +213,9 @@ instance showMaybe :: (Show a) => Show (Maybe a) where
 -- | `==` and inequality with `/=` whenever there is an `Eq` instance for the
 -- | type the `Maybe` contains.
 instance eqMaybe :: (Eq a) => Eq (Maybe a) where
-  (==) Nothing   Nothing   = true
-  (==) (Just a1) (Just a2) = a1 == a2
-  (==) _         _         = false
-  (/=) a b = not (a == b)
+  eq Nothing   Nothing   = true
+  eq (Just a1) (Just a2) = a1 == a2
+  eq _         _         = false
 
 -- | The `Ord` instance allows `Maybe` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for

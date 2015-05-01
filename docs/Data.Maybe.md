@@ -86,7 +86,7 @@ instance applyMaybe :: Apply Maybe
 ```
 
 The `Apply` instance allows functions contained within a `Just` to
-transform a value contained within a `Just` using the `(<*>)` operator:
+transform a value contained within a `Just` using the `apply` operator:
 
 ``` purescript
 Just f <*> Just x == Just (f x)

@@ -1,8 +1,8 @@
 module Data.Maybe.Last where
 
 import Control.Comonad (Comonad)
-import Control.Extend (Extend, (<<=))
-import Data.Functor.Invariant (Invariant, invmap)
+import Control.Extend (Extend, extend)
+import Data.Functor.Invariant (Invariant, imap)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (Monoid)
 
@@ -20,8 +20,7 @@ runLast :: forall a. Last a -> Maybe a
 runLast (Last m) = m
 
 instance eqLast :: (Eq a) => Eq (Last a) where
-  (==) (Last x) (Last y) = x == y
-  (/=) (Last x) (Last y) = x /= y
+  eq (Last x) (Last y) = x == y
 
 instance ordLast :: (Ord a) => Ord (Last a) where
   compare (Last x) (Last y) = compare x y
@@ -31,31 +30,31 @@ instance boundedLast :: (Bounded a) => Bounded (Last a) where
   bottom = Last bottom
 
 instance functorLast :: Functor Last where
-  (<$>) f (Last x) = Last (f <$> x)
+  map f (Last x) = Last (f <$> x)
 
 instance applyLast :: Apply Last where
-  (<*>) (Last f) (Last x) = Last (f <*> x)
+  apply (Last f) (Last x) = Last (f <*> x)
 
 instance applicativeLast :: Applicative Last where
   pure = Last <<< pure
 
 instance bindLast :: Bind Last where
-  (>>=) (Last x) f = Last (x >>= runLast <<< f)
+  bind (Last x) f = Last (bind x (runLast <<< f))
 
 instance monadLast :: Monad Last
 
 instance extendLast :: Extend Last where
-  (<<=) f x = f <<= x
+  extend f (Last x) = Last (extend (f <<< Last) x)
 
 instance invariantLast :: Invariant Last where
-  invmap f _ (Last x) = Last (f <$> x)
+  imap f _ (Last x) = Last (f <$> x)
 
 instance showLast :: (Show a) => Show (Last a) where
   show (Last a) = "Last (" ++ show a ++ ")"
 
 instance semigroupLast :: Semigroup (Last a) where
-  (<>) _ last@(Last (Just _)) = last
-  (<>) last (Last Nothing)    = last
+  append _ last@(Last (Just _)) = last
+  append last (Last Nothing)    = last
 
 instance monoidLast :: Monoid (Last a) where
   mempty = Last Nothing
