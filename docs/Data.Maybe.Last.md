@@ -1,5 +1,3 @@
-# Module Documentation
-
 ## Module Data.Maybe.Last
 
 #### `Last`
@@ -7,6 +5,23 @@
 ``` purescript
 newtype Last a
   = Last (Maybe a)
+```
+
+##### Instances
+``` purescript
+instance eqLast :: (Eq a) => Eq (Last a)
+instance ordLast :: (Ord a) => Ord (Last a)
+instance boundedLast :: (Bounded a) => Bounded (Last a)
+instance functorLast :: Functor Last
+instance applyLast :: Apply Last
+instance applicativeLast :: Applicative Last
+instance bindLast :: Bind Last
+instance monadLast :: Monad Last
+instance extendLast :: Extend Last
+instance invariantLast :: Invariant Last
+instance showLast :: (Show a) => Show (Last a)
+instance semigroupLast :: Semigroup (Last a)
+instance monoidLast :: Monoid (Last a)
 ```
 
 Monoid returning the last (right-most) non-`Nothing` value.
@@ -23,98 +38,5 @@ mempty :: Last _ == Last Nothing
 ``` purescript
 runLast :: forall a. Last a -> Maybe a
 ```
-
-
-#### `eqLast`
-
-``` purescript
-instance eqLast :: (Eq a) => Eq (Last a)
-```
-
-
-#### `ordLast`
-
-``` purescript
-instance ordLast :: (Ord a) => Ord (Last a)
-```
-
-
-#### `boundedLast`
-
-``` purescript
-instance boundedLast :: (Bounded a) => Bounded (Last a)
-```
-
-
-#### `functorLast`
-
-``` purescript
-instance functorLast :: Functor Last
-```
-
-
-#### `applyLast`
-
-``` purescript
-instance applyLast :: Apply Last
-```
-
-
-#### `applicativeLast`
-
-``` purescript
-instance applicativeLast :: Applicative Last
-```
-
-
-#### `bindLast`
-
-``` purescript
-instance bindLast :: Bind Last
-```
-
-
-#### `monadLast`
-
-``` purescript
-instance monadLast :: Monad Last
-```
-
-
-#### `extendLast`
-
-``` purescript
-instance extendLast :: Extend Last
-```
-
-
-#### `invariantLast`
-
-``` purescript
-instance invariantLast :: Invariant Last
-```
-
-
-#### `showLast`
-
-``` purescript
-instance showLast :: (Show a) => Show (Last a)
-```
-
-
-#### `semigroupLast`
-
-``` purescript
-instance semigroupLast :: Semigroup (Last a)
-```
-
-
-#### `monoidLast`
-
-``` purescript
-instance monoidLast :: Monoid (Last a)
-```
-
-
 
 

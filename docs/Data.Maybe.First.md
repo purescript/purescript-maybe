@@ -1,5 +1,3 @@
-# Module Documentation
-
 ## Module Data.Maybe.First
 
 #### `First`
@@ -7,6 +5,23 @@
 ``` purescript
 newtype First a
   = First (Maybe a)
+```
+
+##### Instances
+``` purescript
+instance eqFirst :: (Eq a) => Eq (First a)
+instance ordFirst :: (Ord a) => Ord (First a)
+instance boundedFirst :: (Bounded a) => Bounded (First a)
+instance functorFirst :: Functor First
+instance applyFirst :: Apply First
+instance applicativeFirst :: Applicative First
+instance bindFirst :: Bind First
+instance monadFirst :: Monad First
+instance extendFirst :: Extend First
+instance invariantFirst :: Invariant First
+instance showFirst :: (Show a) => Show (First a)
+instance semigroupFirst :: Semigroup (First a)
+instance monoidFirst :: Monoid (First a)
 ```
 
 Monoid returning the first (left-most) non-`Nothing` value.
@@ -23,98 +38,5 @@ mempty :: First _ == First Nothing
 ``` purescript
 runFirst :: forall a. First a -> Maybe a
 ```
-
-
-#### `eqFirst`
-
-``` purescript
-instance eqFirst :: (Eq a) => Eq (First a)
-```
-
-
-#### `ordFirst`
-
-``` purescript
-instance ordFirst :: (Ord a) => Ord (First a)
-```
-
-
-#### `boundedFirst`
-
-``` purescript
-instance boundedFirst :: (Bounded a) => Bounded (First a)
-```
-
-
-#### `functorFirst`
-
-``` purescript
-instance functorFirst :: Functor First
-```
-
-
-#### `applyFirst`
-
-``` purescript
-instance applyFirst :: Apply First
-```
-
-
-#### `applicativeFirst`
-
-``` purescript
-instance applicativeFirst :: Applicative First
-```
-
-
-#### `bindFirst`
-
-``` purescript
-instance bindFirst :: Bind First
-```
-
-
-#### `monadFirst`
-
-``` purescript
-instance monadFirst :: Monad First
-```
-
-
-#### `extendFirst`
-
-``` purescript
-instance extendFirst :: Extend First
-```
-
-
-#### `invariantFirst`
-
-``` purescript
-instance invariantFirst :: Invariant First
-```
-
-
-#### `showFirst`
-
-``` purescript
-instance showFirst :: (Show a) => Show (First a)
-```
-
-
-#### `semigroupFirst`
-
-``` purescript
-instance semigroupFirst :: Semigroup (First a)
-```
-
-
-#### `monoidFirst`
-
-``` purescript
-instance monoidFirst :: Monoid (First a)
-```
-
-
 
 

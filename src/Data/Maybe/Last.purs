@@ -2,7 +2,7 @@ module Data.Maybe.Last where
 
 import Control.Comonad (Comonad)
 import Control.Extend (Extend, extend)
-import Data.Functor.Invariant (Invariant, imap)
+import Data.Functor.Invariant (Invariant, imapF)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (Monoid)
 
@@ -47,14 +47,14 @@ instance extendLast :: Extend Last where
   extend f (Last x) = Last (extend (f <<< Last) x)
 
 instance invariantLast :: Invariant Last where
-  imap f _ (Last x) = Last (f <$> x)
+  imap = imapF
 
 instance showLast :: (Show a) => Show (Last a) where
   show (Last a) = "Last (" ++ show a ++ ")"
 
 instance semigroupLast :: Semigroup (Last a) where
   append _ last@(Last (Just _)) = last
-  append last (Last Nothing)    = last
+  append last (Last Nothing) = last
 
 instance monoidLast :: Monoid (Last a) where
   mempty = Last Nothing

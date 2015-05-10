@@ -2,7 +2,7 @@ module Data.Maybe.First where
 
 import Control.Comonad (Comonad)
 import Control.Extend (Extend, extend)
-import Data.Functor.Invariant (Invariant, imap)
+import Data.Functor.Invariant (Invariant, imapF)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (Monoid)
 
@@ -47,7 +47,7 @@ instance extendFirst :: Extend First where
   extend f (First x) = First (extend (f <<< First) x)
 
 instance invariantFirst :: Invariant First where
-  imap f _ (First x) = First (f <$> x)
+  imap = imapF
 
 instance showFirst :: (Show a) => Show (First a) where
   show (First a) = "First (" ++ show a ++ ")"

@@ -5,6 +5,7 @@ import Control.Alternative (Alternative)
 import Control.Extend (Extend)
 import Control.MonadPlus (MonadPlus)
 import Control.Plus (Plus)
+import Data.Functor.Invariant (Invariant, imapF)
 import Data.Monoid (Monoid)
 
 -- | The `Maybe` type is used to represent optional values and can be seen as
@@ -186,6 +187,9 @@ instance extendMaybe :: Extend Maybe where
   extend _ Nothing  = Nothing
   extend f x        = Just (f x)
 
+instance invariantFirst :: Invariant Maybe where
+  imap = imapF
+
 -- | The `Semigroup` instance enables use of the operator `<>` on `Maybe` values
 -- | whenever there is a `Semigroup` instance for the type the `Maybe` contains.
 -- | The exact behaviour of `<>` depends on the "inner" `Semigroup` instance,
@@ -201,6 +205,9 @@ instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a) where
   append Nothing  x        = x
   append x        Nothing  = x
   append (Just x) (Just y) = Just (x <> y)
+
+instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a) where
+  mempty = Nothing
 
 -- | The `Show` instance allows `Maybe` values to be rendered as a string with
 -- | `show` whenever there is an `Show` instance for the type the `Maybe`
@@ -231,6 +238,3 @@ instance ordMaybe :: (Ord a) => Ord (Maybe a) where
 instance boundedMaybe :: (Bounded a) => Bounded (Maybe a) where
   top = Just top
   bottom = Nothing
-
-instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a) where
-  mempty = Nothing
