@@ -1,5 +1,7 @@
 module Data.Maybe where
 
+import Prelude
+
 import Control.Alt (Alt)
 import Control.Alternative (Alternative)
 import Control.Extend (Extend)

@@ -1,5 +1,7 @@
 module Data.Maybe.Unsafe where
 
+import Prelude
+
 import Data.Maybe
 
 -- | A partial function that extracts the value from the `Just` data

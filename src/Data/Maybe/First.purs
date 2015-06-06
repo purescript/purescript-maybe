@@ -1,5 +1,7 @@
 module Data.Maybe.First where
 
+import Prelude
+
 import Control.Comonad (Comonad)
 import Control.Extend (Extend, extend)
 import Data.Functor.Invariant (Invariant, imapF)
