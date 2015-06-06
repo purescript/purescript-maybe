@@ -23,10 +23,17 @@ instance extendMaybe :: Extend Maybe
 instance invariantFirst :: Invariant Maybe
 instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a)
 instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a)
-instance showMaybe :: (Show a) => Show (Maybe a)
+instance semiringMaybe :: (Semiring a) => Semiring (Maybe a)
+instance moduloSemiringMaybe :: (ModuloSemiring a) => ModuloSemiring (Maybe a)
+instance ringMaybe :: (Ring a) => Ring (Maybe a)
+instance divisionRingMaybe :: (DivisionRing a) => DivisionRing (Maybe a)
+instance numMaybe :: (Num a) => Num (Maybe a)
 instance eqMaybe :: (Eq a) => Eq (Maybe a)
 instance ordMaybe :: (Ord a) => Ord (Maybe a)
 instance boundedMaybe :: (Bounded a) => Bounded (Maybe a)
+instance boundedOrdMaybe :: (BoundedOrd a) => BoundedOrd (Maybe a)
+instance booleanAlgebraMaybe :: (BooleanAlgebra a) => BooleanAlgebra (Maybe a)
+instance showMaybe :: (Show a) => Show (Maybe a)
 ```
 
 The `Maybe` type is used to represent optional values and can be seen as

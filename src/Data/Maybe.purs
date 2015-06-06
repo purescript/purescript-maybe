@@ -204,19 +204,27 @@ instance invariantFirst :: Invariant Maybe where
 -- | Nothing <> Nothing = Nothing
 -- | ```
 instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a) where
-  append Nothing  x        = x
-  append x        Nothing  = x
-  append (Just x) (Just y) = Just (x <> y)
+  append x y = append <$> x <*> y
 
 instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a) where
   mempty = Nothing
 
--- | The `Show` instance allows `Maybe` values to be rendered as a string with
--- | `show` whenever there is an `Show` instance for the type the `Maybe`
--- | contains.
-instance showMaybe :: (Show a) => Show (Maybe a) where
-  show (Just x) = "Just (" ++ show x ++ ")"
-  show Nothing  = "Nothing"
+instance semiringMaybe :: (Semiring a) => Semiring (Maybe a) where
+  add x y = add <$> x <*> y
+  one = Just one
+  mul x y = mul <$> x <*> y
+  zero = Just zero
+
+instance moduloSemiringMaybe :: (ModuloSemiring a) => ModuloSemiring (Maybe a) where
+  mod x y = mod <$> x <*> y
+  div x y = div <$> x <*> y
+
+instance ringMaybe :: (Ring a) => Ring (Maybe a) where
+  sub x y = sub <$> x <*> y
+
+instance divisionRingMaybe :: (DivisionRing a) => DivisionRing (Maybe a)
+
+instance numMaybe :: (Num a) => Num (Maybe a)
 
 -- | The `Eq` instance allows `Maybe` values to be checked for equality with
 -- | `==` and inequality with `/=` whenever there is an `Eq` instance for the
@@ -240,3 +248,17 @@ instance ordMaybe :: (Ord a) => Ord (Maybe a) where
 instance boundedMaybe :: (Bounded a) => Bounded (Maybe a) where
   top = Just top
   bottom = Nothing
+
+instance boundedOrdMaybe :: (BoundedOrd a) => BoundedOrd (Maybe a)
+
+instance booleanAlgebraMaybe :: (BooleanAlgebra a) => BooleanAlgebra (Maybe a) where
+  conj x y = conj <$> x <*> y
+  disj x y = disj <$> x <*> y
+  not = map not
+
+-- | The `Show` instance allows `Maybe` values to be rendered as a string with
+-- | `show` whenever there is an `Show` instance for the type the `Maybe`
+-- | contains.
+instance showMaybe :: (Show a) => Show (Maybe a) where
+  show (Just x) = "Just (" ++ show x ++ ")"
+  show Nothing  = "Nothing"
