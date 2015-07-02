@@ -189,7 +189,7 @@ instance extendMaybe :: Extend Maybe where
   extend _ Nothing  = Nothing
   extend f x        = Just (f x)
 
-instance invariantFirst :: Invariant Maybe where
+instance invariantMaybe :: Invariant Maybe where
   imap = imapF
 
 -- | The `Semigroup` instance enables use of the operator `<>` on `Maybe` values
