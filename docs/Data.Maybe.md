@@ -8,6 +8,10 @@ data Maybe a
   | Just a
 ```
 
+The `Maybe` type is used to represent optional values and can be seen as
+something like a type-safe `null`, where `Nothing` is `null` and `Just x`
+is the non-null value `x`.
+
 ##### Instances
 ``` purescript
 instance functorMaybe :: Functor Maybe
@@ -20,7 +24,7 @@ instance bindMaybe :: Bind Maybe
 instance monadMaybe :: Monad Maybe
 instance monadPlusMaybe :: MonadPlus Maybe
 instance extendMaybe :: Extend Maybe
-instance invariantFirst :: Invariant Maybe
+instance invariantMaybe :: Invariant Maybe
 instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a)
 instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a)
 instance semiringMaybe :: (Semiring a) => Semiring (Maybe a)
@@ -35,10 +39,6 @@ instance boundedOrdMaybe :: (BoundedOrd a) => BoundedOrd (Maybe a)
 instance booleanAlgebraMaybe :: (BooleanAlgebra a) => BooleanAlgebra (Maybe a)
 instance showMaybe :: (Show a) => Show (Maybe a)
 ```
-
-The `Maybe` type is used to represent optional values and can be seen as
-something like a type-safe `null`, where `Nothing` is `null` and `Just x`
-is the non-null value `x`.
 
 #### `maybe`
 
