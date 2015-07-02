@@ -7,6 +7,15 @@ newtype Last a
   = Last (Maybe a)
 ```
 
+Monoid returning the last (right-most) non-`Nothing` value.
+
+``` purescript
+Last (Just x) <> Last (Just y) == Last (Just y)
+Last (Just x) <> Nothing == Last (Just x)
+Last Nothing <> Nothing == Last Nothing
+mempty :: Last _ == Last Nothing
+```
+
 ##### Instances
 ``` purescript
 instance eqLast :: (Eq a) => Eq (Last a)
@@ -22,15 +31,6 @@ instance invariantLast :: Invariant Last
 instance showLast :: (Show a) => Show (Last a)
 instance semigroupLast :: Semigroup (Last a)
 instance monoidLast :: Monoid (Last a)
-```
-
-Monoid returning the last (right-most) non-`Nothing` value.
-
-``` purescript
-Last (Just x) <> Last (Just y) == Last (Just y)
-Last (Just x) <> Nothing == Last (Just x)
-Last Nothing <> Nothing == Last Nothing
-mempty :: Last _ == Last Nothing
 ```
 
 #### `runLast`

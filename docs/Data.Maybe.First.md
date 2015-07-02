@@ -7,6 +7,15 @@ newtype First a
   = First (Maybe a)
 ```
 
+Monoid returning the first (left-most) non-`Nothing` value.
+
+``` purescript
+First (Just x) <> First (Just y) == First (Just x)
+First Nothing <> First (Just y) == First (Just y)
+First Nothing <> Nothing == First Nothing
+mempty :: First _ == First Nothing
+```
+
 ##### Instances
 ``` purescript
 instance eqFirst :: (Eq a) => Eq (First a)
@@ -22,15 +31,6 @@ instance invariantFirst :: Invariant First
 instance showFirst :: (Show a) => Show (First a)
 instance semigroupFirst :: Semigroup (First a)
 instance monoidFirst :: Monoid (First a)
-```
-
-Monoid returning the first (left-most) non-`Nothing` value.
-
-``` purescript
-First (Just x) <> First (Just y) == First (Just x)
-First Nothing <> First (Just y) == First (Just y)
-First Nothing <> Nothing == First Nothing
-mempty :: First _ == First Nothing
 ```
 
 #### `runFirst`
