@@ -204,7 +204,9 @@ instance invariantMaybe :: Invariant Maybe where
 -- | Nothing <> Nothing = Nothing
 -- | ```
 instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a) where
-  append x y = append <$> x <*> y
+  append Nothing y = y
+  append x Nothing = x
+  append x y       = append <$> x <*> y
 
 instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a) where
   mempty = Nothing
