@@ -199,12 +199,14 @@ instance invariantMaybe :: Invariant Maybe where
 -- |
 -- | ``` purescript
 -- | Just x <> Just y = Just (x <> y)
--- | Just x <> Nothing = Nothing
--- | Nothing <> Just y = Nothing
+-- | Just x <> Nothing = Just x
+-- | Nothing <> Just y = Just y
 -- | Nothing <> Nothing = Nothing
 -- | ```
 instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a) where
-  append x y = append <$> x <*> y
+  append Nothing y = y
+  append x Nothing = x
+  append (Just x) (Just y) = Just (x <> y)
 
 instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a) where
   mempty = Nothing
