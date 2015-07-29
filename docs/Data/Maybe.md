@@ -55,6 +55,22 @@ maybe x f Nothing == x
 maybe x f (Just y) == f y
 ```
 
+#### `maybe'`
+
+``` purescript
+maybe' :: forall a b. (Unit -> b) -> (a -> b) -> Maybe a -> b
+```
+
+Similar to `maybe` but for use in cases where the default value may be
+expensive to compute. As PureScript is not lazy, the standard `maybe` has
+to evaluate the default value before returning the result, whereas here
+the value is only computed when the `Maybe` is known to be `Nothing`.
+
+``` purescript
+maybe' (\_ -> x) f Nothing == x
+maybe' (\_ -> x) f (Just y) == f y
+```
+
 #### `fromMaybe`
 
 ``` purescript
@@ -68,6 +84,22 @@ Takes a default value, and a `Maybe` value. If the `Maybe` value is
 ``` purescript
 fromMaybe x Nothing == x
 fromMaybe x (Just y) == y
+```
+
+#### `fromMaybe'`
+
+``` purescript
+fromMaybe' :: forall a. (Unit -> a) -> Maybe a -> a
+```
+
+Similar to `fromMaybe` but for use in cases where the default value may be
+expensive to compute. As PureScript is not lazy, the standard `fromMaybe`
+has to evaluate the default value before returning the result, whereas here
+the value is only computed when the `Maybe` is known to be `Nothing`.
+
+``` purescript
+fromMaybe' (\_ -> x) Nothing == x
+fromMaybe' (\_ -> x) (Just y) == y
 ```
 
 #### `isJust`
