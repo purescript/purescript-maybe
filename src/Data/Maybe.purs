@@ -27,6 +27,19 @@ maybe :: forall a b. b -> (a -> b) -> Maybe a -> b
 maybe b _ Nothing = b
 maybe _ f (Just a) = f a
 
+-- | Similar to `maybe` but for use in cases where the default value may be
+-- | expensive to compute. As PureScript is not lazy, the standard `maybe` has
+-- | to evaluate the default value before returning the result, whereas here
+-- | the value is only computed when the `Maybe` is known to be `Nothing`.
+-- |
+-- | ``` purescript
+-- | maybe' (\_ -> x) f Nothing == x
+-- | maybe' (\_ -> x) f (Just y) == f y
+-- | ```
+maybe' :: forall a b. (Unit -> b) -> (a -> b) -> Maybe a -> b
+maybe' g _ Nothing = g unit
+maybe' _ f (Just a) = f a
+
 -- | Takes a default value, and a `Maybe` value. If the `Maybe` value is
 -- | `Nothing` the default value is returned, otherwise the value inside the
 -- | `Just` is returned.
@@ -37,6 +50,18 @@ maybe _ f (Just a) = f a
 -- | ```
 fromMaybe :: forall a. a -> Maybe a -> a
 fromMaybe a = maybe a (id :: forall a. a -> a)
+
+-- | Similar to `fromMaybe` but for use in cases where the default value may be
+-- | expensive to compute. As PureScript is not lazy, the standard `fromMaybe`
+-- | has to evaluate the default value before returning the result, whereas here
+-- | the value is only computed when the `Maybe` is known to be `Nothing`.
+-- |
+-- | ``` purescript
+-- | fromMaybe' (\_ -> x) Nothing == x
+-- | fromMaybe' (\_ -> x) (Just y) == y
+-- | ```
+fromMaybe' :: forall a. (Unit -> a) -> Maybe a -> a
+fromMaybe' a = maybe' a (id :: forall a. a -> a)
 
 -- | Returns `true` when the `Maybe` value was constructed with `Just`.
 isJust :: forall a. Maybe a -> Boolean
