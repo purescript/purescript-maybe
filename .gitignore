@@ -5,3 +5,5 @@
 /node_modules/
 /output/
 /tmp/
+npm-debug.log
+check-laws/.pulp-cache/
