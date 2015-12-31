@@ -1,0 +1,8 @@
+{
+  "name": "purescript-maybe-check-laws",
+  "private": "true",
+  "dependencies": {
+    "purescript-maybe": "./..",
+    "purescript-quickcheck-laws": "~0.1.0"
+  }
+}
