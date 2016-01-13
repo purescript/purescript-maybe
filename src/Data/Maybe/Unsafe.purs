@@ -1,4 +1,6 @@
-module Data.Maybe.Unsafe where
+module Data.Maybe.Unsafe
+  ( fromJust
+  ) where
 
 import Prelude
 
