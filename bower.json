@@ -2,9 +2,6 @@
   "name": "purescript-maybe",
   "homepage": "https://github.com/purescript/purescript-maybe",
   "description": "Optional values",
-  "keywords": [
-    "purescript"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -17,10 +14,9 @@
     "output",
     "test",
     "bower.json",
-    "gulpfile.js",
     "package.json"
   ],
   "dependencies": {
-    "purescript-monoid": "^0.3.0"
+    "purescript-monoid": "^1.0.0-rc.1"
   }
 }
