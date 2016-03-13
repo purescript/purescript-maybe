@@ -1,12 +1,22 @@
 module Data.Maybe.First where
 
-import Prelude
+import Control.Applicative (class Applicative, pure)
+import Control.Apply (class Apply, (<*>))
+import Control.Bind (class Bind, bind)
+import Control.Extend (class Extend, extend)
+import Control.Monad (class Monad)
 
-import Control.Comonad (Comonad)
-import Control.Extend (Extend, extend)
-import Data.Functor.Invariant (Invariant, imapF)
+import Data.Bounded (class Bounded, top, bottom)
+import Data.BoundedOrd (class BoundedOrd)
+import Data.Eq (class Eq, (==))
+import Data.Function ((<<<))
+import Data.Functor (class Functor, (<$>))
+import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Maybe (Maybe(..))
-import Data.Monoid (Monoid)
+import Data.Monoid (class Monoid)
+import Data.Ord (class Ord, compare)
+import Data.Semigroup (class Semigroup, (<>))
+import Data.Show (class Show, show)
 
 -- | Monoid returning the first (left-most) non-`Nothing` value.
 -- |
@@ -31,8 +41,13 @@ instance boundedFirst :: (Bounded a) => Bounded (First a) where
   top = First top
   bottom = First bottom
 
+instance boundedOrdFirst :: BoundedOrd a => BoundedOrd (First a) where
+
 instance functorFirst :: Functor First where
   map f (First x) = First (f <$> x)
+
+instance invariantFirst :: Invariant First where
+  imap = imapF
 
 instance applyFirst :: Apply First where
   apply (First f) (First x) = First (f <*> x)
@@ -48,11 +63,8 @@ instance monadFirst :: Monad First
 instance extendFirst :: Extend First where
   extend f (First x) = First (extend (f <<< First) x)
 
-instance invariantFirst :: Invariant First where
-  imap = imapF
-
 instance showFirst :: (Show a) => Show (First a) where
-  show (First a) = "First (" ++ show a ++ ")"
+  show (First a) = "First (" <> show a <> ")"
 
 instance semigroupFirst :: Semigroup (First a) where
   append first@(First (Just _)) _ = first

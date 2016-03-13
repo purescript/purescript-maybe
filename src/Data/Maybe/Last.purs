@@ -1,12 +1,22 @@
 module Data.Maybe.Last where
 
-import Prelude
+import Control.Applicative (class Applicative, pure)
+import Control.Apply (class Apply, (<*>))
+import Control.Bind (class Bind, bind)
+import Control.Extend (class Extend, extend)
+import Control.Monad (class Monad)
 
-import Control.Comonad (Comonad)
-import Control.Extend (Extend, extend)
-import Data.Functor.Invariant (Invariant, imapF)
+import Data.Bounded (class Bounded, top, bottom)
+import Data.BoundedOrd (class BoundedOrd)
+import Data.Eq (class Eq, (==))
+import Data.Function ((<<<))
+import Data.Functor (class Functor, (<$>))
+import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Maybe (Maybe(..))
-import Data.Monoid (Monoid)
+import Data.Monoid (class Monoid)
+import Data.Ord (class Ord, compare)
+import Data.Semigroup (class Semigroup, (<>))
+import Data.Show (class Show, show)
 
 -- | Monoid returning the last (right-most) non-`Nothing` value.
 -- |
@@ -21,18 +31,23 @@ newtype Last a = Last (Maybe a)
 runLast :: forall a. Last a -> Maybe a
 runLast (Last m) = m
 
-instance eqLast :: (Eq a) => Eq (Last a) where
+instance eqLast :: Eq a => Eq (Last a) where
   eq (Last x) (Last y) = x == y
 
-instance ordLast :: (Ord a) => Ord (Last a) where
+instance ordLast :: Ord a => Ord (Last a) where
   compare (Last x) (Last y) = compare x y
 
-instance boundedLast :: (Bounded a) => Bounded (Last a) where
+instance boundedLast :: Bounded a => Bounded (Last a) where
   top = Last top
   bottom = Last bottom
 
+instance boundedOrdLast :: BoundedOrd a => BoundedOrd (Last a) where
+
 instance functorLast :: Functor Last where
   map f (Last x) = Last (f <$> x)
+
+instance invariantLast :: Invariant Last where
+  imap = imapF
 
 instance applyLast :: Apply Last where
   apply (Last f) (Last x) = Last (f <*> x)
@@ -48,11 +63,8 @@ instance monadLast :: Monad Last
 instance extendLast :: Extend Last where
   extend f (Last x) = Last (extend (f <<< Last) x)
 
-instance invariantLast :: Invariant Last where
-  imap = imapF
-
-instance showLast :: (Show a) => Show (Last a) where
-  show (Last a) = "Last (" ++ show a ++ ")"
+instance showLast :: Show a => Show (Last a) where
+  show (Last a) = "(Last " <> show a <> ")"
 
 instance semigroupLast :: Semigroup (Last a) where
   append _ last@(Last (Just _)) = last
