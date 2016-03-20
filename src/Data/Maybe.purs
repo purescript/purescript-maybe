@@ -3,19 +3,17 @@ module Data.Maybe where
 import Control.Alt (class Alt)
 import Control.Alternative (class Alternative)
 import Control.Applicative (class Applicative)
-import Control.Apply (class Apply, (<*>))
+import Control.Apply (class Apply)
 import Control.Bind (class Bind)
 import Control.Extend (class Extend)
 import Control.Monad (class Monad)
 import Control.MonadZero (class MonadZero)
 import Control.Plus (class Plus)
 
-import Data.BooleanAlgebra (class BooleanAlgebra, conj, disj, not)
 import Data.Bounded (class Bounded, top)
-import Data.BoundedOrd (class BoundedOrd)
 import Data.Eq (class Eq, (==))
 import Data.Function (const, id)
-import Data.Functor (class Functor, map, (<$>))
+import Data.Functor (class Functor, (<$>))
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Monoid (class Monoid)
 import Data.Ord (class Ord, compare)
@@ -214,13 +212,6 @@ instance ordMaybe :: Ord a => Ord (Maybe a) where
 instance boundedMaybe :: Bounded a => Bounded (Maybe a) where
   top = Just top
   bottom = Nothing
-
-instance boundedOrdMaybe :: BoundedOrd a => BoundedOrd (Maybe a)
-
-instance booleanAlgebraMaybe :: BooleanAlgebra a => BooleanAlgebra (Maybe a) where
-  conj x y = conj <$> x <*> y
-  disj x y = disj <$> x <*> y
-  not = map not
 
 -- | The `Show` instance allows `Maybe` values to be rendered as a string with
 -- | `show` whenever there is an `Show` instance for the type the `Maybe`
