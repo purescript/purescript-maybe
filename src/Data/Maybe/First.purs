@@ -7,7 +7,6 @@ import Control.Extend (class Extend, extend)
 import Control.Monad (class Monad)
 
 import Data.Bounded (class Bounded, top, bottom)
-import Data.BoundedOrd (class BoundedOrd)
 import Data.Eq (class Eq, (==))
 import Data.Function ((<<<))
 import Data.Functor (class Functor, (<$>))
@@ -40,8 +39,6 @@ instance ordFirst :: (Ord a) => Ord (First a) where
 instance boundedFirst :: (Bounded a) => Bounded (First a) where
   top = First top
   bottom = First bottom
-
-instance boundedOrdFirst :: BoundedOrd a => BoundedOrd (First a) where
 
 instance functorFirst :: Functor First where
   map f (First x) = First (f <$> x)
