@@ -1,21 +1,13 @@
 module Data.Maybe.First where
 
-import Control.Applicative (class Applicative, pure)
-import Control.Apply (class Apply, (<*>))
-import Control.Bind (class Bind, bind)
-import Control.Extend (class Extend, extend)
-import Control.Monad (class Monad)
+import Prelude
 
-import Data.Bounded (class Bounded, top, bottom)
-import Data.Eq (class Eq, (==))
-import Data.Function ((<<<))
-import Data.Functor (class Functor, (<$>))
+import Control.Extend (class Extend, extend)
+
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (class Monoid)
-import Data.Ord (class Ord, compare)
-import Data.Semigroup (class Semigroup, (<>))
-import Data.Show (class Show, show)
+import Data.Newtype (class Newtype)
 
 -- | Monoid returning the first (left-most) non-`Nothing` value.
 -- |
@@ -27,18 +19,13 @@ import Data.Show (class Show, show)
 -- | ```
 newtype First a = First (Maybe a)
 
-runFirst :: forall a. First a -> Maybe a
-runFirst (First m) = m
+derive instance newtypeFirst :: Newtype (First a) _
 
-instance eqFirst :: (Eq a) => Eq (First a) where
-  eq (First x) (First y) = x == y
+derive newtype instance eqFirst :: (Eq a) => Eq (First a)
 
-instance ordFirst :: (Ord a) => Ord (First a) where
-  compare (First x) (First y) = compare x y
+derive newtype instance ordFirst :: (Ord a) => Ord (First a)
 
-instance boundedFirst :: (Bounded a) => Bounded (First a) where
-  top = First top
-  bottom = First bottom
+derive newtype instance boundedFirst :: (Bounded a) => Bounded (First a)
 
 instance functorFirst :: Functor First where
   map f (First x) = First (f <$> x)
@@ -53,7 +40,7 @@ instance applicativeFirst :: Applicative First where
   pure = First <<< pure
 
 instance bindFirst :: Bind First where
-  bind (First x) f = First (bind x (runFirst <<< f))
+  bind (First x) f = First (x >>= \y -> case f y of First ma -> ma)
 
 instance monadFirst :: Monad First
 
