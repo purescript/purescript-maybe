@@ -2,9 +2,9 @@ module Data.Maybe.First where
 
 import Prelude
 
-import Control.Extend (class Extend, extend)
+import Control.Extend (class Extend)
 
-import Data.Functor.Invariant (class Invariant, imapF)
+import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (class Monoid)
 import Data.Newtype (class Newtype)
@@ -27,25 +27,19 @@ derive newtype instance ordFirst :: (Ord a) => Ord (First a)
 
 derive newtype instance boundedFirst :: (Bounded a) => Bounded (First a)
 
-instance functorFirst :: Functor First where
-  map f (First x) = First (f <$> x)
+derive newtype instance functorFirst :: Functor First
 
-instance invariantFirst :: Invariant First where
-  imap = imapF
+derive newtype instance invariantFirst :: Invariant First
 
-instance applyFirst :: Apply First where
-  apply (First f) (First x) = First (f <*> x)
+derive newtype instance applyFirst :: Apply First
 
-instance applicativeFirst :: Applicative First where
-  pure = First <<< pure
+derive newtype instance applicativeFirst :: Applicative First
 
-instance bindFirst :: Bind First where
-  bind (First x) f = First (x >>= \y -> case f y of First ma -> ma)
+derive newtype instance bindFirst :: Bind First
 
-instance monadFirst :: Monad First
+derive newtype instance monadFirst :: Monad First
 
-instance extendFirst :: Extend First where
-  extend f (First x) = First (extend (f <<< First) x)
+derive newtype instance extendFirst :: Extend First
 
 instance showFirst :: (Show a) => Show (First a) where
   show (First a) = "First (" <> show a <> ")"

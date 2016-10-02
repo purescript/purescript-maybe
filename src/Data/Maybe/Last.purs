@@ -2,9 +2,9 @@ module Data.Maybe.Last where
 
 import Prelude
 
-import Control.Extend (class Extend, extend)
+import Control.Extend (class Extend)
 
-import Data.Functor.Invariant (class Invariant, imapF)
+import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (class Monoid)
 import Data.Newtype (class Newtype)
@@ -21,31 +21,25 @@ newtype Last a = Last (Maybe a)
 
 derive instance newtypeLast :: Newtype (Last a) _
 
-derive newtype instance eqLast :: Eq a => Eq (Last a)
+derive newtype instance eqLast :: (Eq a) => Eq (Last a)
 
-derive newtype instance ordLast :: Ord a => Ord (Last a)
+derive newtype instance ordLast :: (Ord a) => Ord (Last a)
 
-derive newtype instance boundedLast :: Bounded a => Bounded (Last a)
+derive newtype instance boundedLast :: (Bounded a) => Bounded (Last a)
 
-instance functorLast :: Functor Last where
-  map f (Last x) = Last (f <$> x)
+derive newtype instance functorLast :: Functor Last
 
-instance invariantLast :: Invariant Last where
-  imap = imapF
+derive newtype instance invariantLast :: Invariant Last
 
-instance applyLast :: Apply Last where
-  apply (Last f) (Last x) = Last (f <*> x)
+derive newtype instance applyLast :: Apply Last
 
-instance applicativeLast :: Applicative Last where
-  pure = Last <<< pure
+derive newtype instance applicativeLast :: Applicative Last
 
-instance bindLast :: Bind Last where
-  bind (Last x) f = Last (x >>= \y -> case f y of Last ma -> ma)
+derive newtype instance bindLast :: Bind Last
 
-instance monadLast :: Monad Last
+derive newtype instance monadLast :: Monad Last
 
-instance extendLast :: Extend Last where
-  extend f (Last x) = Last (extend (f <<< Last) x)
+derive newtype instance extendLast :: Extend Last
 
 instance showLast :: Show a => Show (Last a) where
   show (Last a) = "(Last " <> show a <> ")"
