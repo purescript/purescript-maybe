@@ -1,26 +1,15 @@
 module Data.Maybe where
 
+import Prelude
+
 import Control.Alt (class Alt)
 import Control.Alternative (class Alternative)
-import Control.Applicative (class Applicative)
-import Control.Apply (class Apply)
-import Control.Bind (class Bind)
 import Control.Extend (class Extend)
-import Control.Monad (class Monad)
 import Control.MonadZero (class MonadZero)
 import Control.Plus (class Plus)
 
-import Data.Bounded (class Bounded, top)
-import Data.Eq (class Eq, (==))
-import Data.Function (const, id)
-import Data.Functor (class Functor, (<$>))
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Monoid (class Monoid)
-import Data.Ord (class Ord, compare)
-import Data.Ordering (Ordering(..))
-import Data.Semigroup (class Semigroup, (<>))
-import Data.Show (class Show, show)
-import Data.Unit (Unit, unit)
 
 -- | The `Maybe` type is used to represent optional values and can be seen as
 -- | something like a type-safe `null`, where `Nothing` is `null` and `Just x`
@@ -193,21 +182,14 @@ instance monoidMaybe :: Semigroup a => Monoid (Maybe a) where
 -- | The `Eq` instance allows `Maybe` values to be checked for equality with
 -- | `==` and inequality with `/=` whenever there is an `Eq` instance for the
 -- | type the `Maybe` contains.
-instance eqMaybe :: Eq a => Eq (Maybe a) where
-  eq Nothing   Nothing   = true
-  eq (Just a1) (Just a2) = a1 == a2
-  eq _         _         = false
+derive instance eqMaybe :: Eq a => Eq (Maybe a)
 
 -- | The `Ord` instance allows `Maybe` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
 -- | the type the `Maybe` contains.
 -- |
 -- | `Nothing` is considered to be less than any `Just` value.
-instance ordMaybe :: Ord a => Ord (Maybe a) where
-  compare (Just x) (Just y) = compare x y
-  compare Nothing  Nothing  = EQ
-  compare Nothing  _        = LT
-  compare _        Nothing  = GT
+derive instance ordMaybe :: Ord a => Ord (Maybe a)
 
 instance boundedMaybe :: Bounded a => Bounded (Maybe a) where
   top = Just top

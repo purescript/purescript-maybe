@@ -1,21 +1,13 @@
 module Data.Maybe.Last where
 
-import Control.Applicative (class Applicative, pure)
-import Control.Apply (class Apply, (<*>))
-import Control.Bind (class Bind, bind)
-import Control.Extend (class Extend, extend)
-import Control.Monad (class Monad)
+import Prelude
 
-import Data.Bounded (class Bounded, top, bottom)
-import Data.Eq (class Eq, (==))
-import Data.Function ((<<<))
-import Data.Functor (class Functor, (<$>))
-import Data.Functor.Invariant (class Invariant, imapF)
+import Control.Extend (class Extend)
+
+import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (class Monoid)
-import Data.Ord (class Ord, compare)
-import Data.Semigroup (class Semigroup, (<>))
-import Data.Show (class Show, show)
+import Data.Newtype (class Newtype)
 
 -- | Monoid returning the last (right-most) non-`Nothing` value.
 -- |
@@ -27,38 +19,27 @@ import Data.Show (class Show, show)
 -- | ```
 newtype Last a = Last (Maybe a)
 
-runLast :: forall a. Last a -> Maybe a
-runLast (Last m) = m
+derive instance newtypeLast :: Newtype (Last a) _
 
-instance eqLast :: Eq a => Eq (Last a) where
-  eq (Last x) (Last y) = x == y
+derive newtype instance eqLast :: (Eq a) => Eq (Last a)
 
-instance ordLast :: Ord a => Ord (Last a) where
-  compare (Last x) (Last y) = compare x y
+derive newtype instance ordLast :: (Ord a) => Ord (Last a)
 
-instance boundedLast :: Bounded a => Bounded (Last a) where
-  top = Last top
-  bottom = Last bottom
+derive newtype instance boundedLast :: (Bounded a) => Bounded (Last a)
 
-instance functorLast :: Functor Last where
-  map f (Last x) = Last (f <$> x)
+derive newtype instance functorLast :: Functor Last
 
-instance invariantLast :: Invariant Last where
-  imap = imapF
+derive newtype instance invariantLast :: Invariant Last
 
-instance applyLast :: Apply Last where
-  apply (Last f) (Last x) = Last (f <*> x)
+derive newtype instance applyLast :: Apply Last
 
-instance applicativeLast :: Applicative Last where
-  pure = Last <<< pure
+derive newtype instance applicativeLast :: Applicative Last
 
-instance bindLast :: Bind Last where
-  bind (Last x) f = Last (bind x (runLast <<< f))
+derive newtype instance bindLast :: Bind Last
 
-instance monadLast :: Monad Last
+derive newtype instance monadLast :: Monad Last
 
-instance extendLast :: Extend Last where
-  extend f (Last x) = Last (extend (f <<< Last) x)
+derive newtype instance extendLast :: Extend Last
 
 instance showLast :: Show a => Show (Last a) where
   show (Last a) = "(Last " <> show a <> ")"
