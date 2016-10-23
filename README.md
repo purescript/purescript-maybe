@@ -1,8 +1,7 @@
 # purescript-maybe
 
-[![Latest release](http://img.shields.io/bower/v/purescript-maybe.svg)](https://github.com/purescript/purescript-maybe/releases)
-[![Build Status](https://travis-ci.org/purescript/purescript-maybe.svg?branch=master)](https://travis-ci.org/purescript/purescript-maybe)
-[![Dependency Status](https://www.versioneye.com/user/projects/55848c22363861001d000326/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55848c22363861001d000326)
+[![Latest release](http://img.shields.io/github/release/purescript/purescript-maybe.svg)](https://github.com/purescript/purescript-maybe/releases)
+[![Build status](https://travis-ci.org/purescript/purescript-maybe.svg?branch=master)](https://travis-ci.org/purescript/purescript-maybe)
 
 Optional values. `Maybe` is often used to capture failures and in cases where nullable values might otherwise have been used in other languages.
 
