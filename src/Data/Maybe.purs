@@ -14,7 +14,7 @@ import Data.Monoid (class Monoid)
 -- | The `Maybe` type is used to represent optional values and can be seen as
 -- | something like a type-safe `null`, where `Nothing` is `null` and `Just x`
 -- | is the non-null value `x`.
-data Maybe a = Just a | Nothing
+data Maybe a = Nothing | Just a
 
 -- | The `Functor` instance allows functions to transform the contents of a
 -- | `Just` with the `<$>` operator:
