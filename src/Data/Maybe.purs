@@ -263,3 +263,8 @@ isNothing = maybe true (const false)
 -- | runtime.
 fromJust :: forall a. Partial => Maybe a -> a
 fromJust (Just x) = x
+
+-- | Allows to unpack `Maybe` value, and use it immediately
+whenJust :: forall m a. Applicative m => Maybe a -> (a -> m Unit) -> m Unit
+whenJust Nothing  _ = pure unit
+whenJust (Just v) f = f    v
