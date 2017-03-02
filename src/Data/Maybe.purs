@@ -8,8 +8,10 @@ import Control.Extend (class Extend)
 import Control.MonadZero (class MonadZero)
 import Control.Plus (class Plus)
 
+import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Monoid (class Monoid)
+import Data.Ord (class Ord1)
 
 -- | The `Maybe` type is used to represent optional values and can be seen as
 -- | something like a type-safe `null`, where `Nothing` is `null` and `Just x`
@@ -184,12 +186,16 @@ instance monoidMaybe :: Semigroup a => Monoid (Maybe a) where
 -- | type the `Maybe` contains.
 derive instance eqMaybe :: Eq a => Eq (Maybe a)
 
+instance eq1Maybe :: Eq1 Maybe where eq1 = eq
+
 -- | The `Ord` instance allows `Maybe` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
 -- | the type the `Maybe` contains.
 -- |
 -- | `Nothing` is considered to be less than any `Just` value.
 derive instance ordMaybe :: Ord a => Ord (Maybe a)
+
+instance ord1Maybe :: Ord1 Maybe where compare1 = compare
 
 instance boundedMaybe :: Bounded a => Bounded (Maybe a) where
   top = Just top
