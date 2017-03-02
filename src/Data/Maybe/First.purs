@@ -4,10 +4,12 @@ import Prelude
 
 import Control.Extend (class Extend)
 
+import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (class Monoid)
 import Data.Newtype (class Newtype)
+import Data.Ord (class Ord1)
 
 -- | Monoid returning the first (left-most) non-`Nothing` value.
 -- |
@@ -23,7 +25,11 @@ derive instance newtypeFirst :: Newtype (First a) _
 
 derive newtype instance eqFirst :: (Eq a) => Eq (First a)
 
+derive newtype instance eq1First :: Eq1 First
+
 derive newtype instance ordFirst :: (Ord a) => Ord (First a)
+
+derive newtype instance ord1First :: Ord1 First
 
 derive newtype instance boundedFirst :: (Bounded a) => Bounded (First a)
 
