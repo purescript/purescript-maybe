@@ -5,6 +5,7 @@ import Prelude
 import Control.Alt (class Alt)
 import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
+import Control.Lazy (class Lazy, defer)
 import Control.MonadZero (class MonadZero)
 import Control.Plus (class Plus)
 
@@ -200,6 +201,9 @@ instance ord1Maybe :: Ord1 Maybe where compare1 = compare
 instance boundedMaybe :: Bounded a => Bounded (Maybe a) where
   top = Just top
   bottom = Nothing
+
+instance lazyMaybe :: Lazy a => Lazy (Maybe a) where
+  defer f = ((map (defer <<< const)) <$> f) unit
 
 -- | The `Show` instance allows `Maybe` values to be rendered as a string with
 -- | `show` whenever there is an `Show` instance for the type the `Maybe`
