@@ -2,7 +2,7 @@ module Data.Maybe where
 
 import Prelude
 
-import Control.Alt (class Alt)
+import Control.Alt (class Alt, (<|>))
 import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
 import Control.MonadZero (class MonadZero)
@@ -269,3 +269,12 @@ isNothing = maybe true (const false)
 -- | runtime.
 fromJust :: forall a. Partial => Maybe a -> a
 fromJust (Just x) = x
+
+-- | One or none.
+-- |
+-- | ``` purescript
+-- | optional empty = pure Nothing
+-- | optional (pure x) = pure (Just x)
+-- | ```
+optional :: forall f a. Alternative f => f a -> f (Maybe a)
+optional a = map Just a <|> pure Nothing
