@@ -3,11 +3,11 @@ module Data.Maybe.Last where
 import Prelude
 
 import Control.Extend (class Extend)
-
+import Control.MonadZero (class MonadZero, class Alternative, class Plus, class Alt)
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
-import Data.Monoid (class Monoid)
+import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (class Newtype)
 import Data.Ord (class Ord1)
 
@@ -56,3 +56,13 @@ instance semigroupLast :: Semigroup (Last a) where
 
 instance monoidLast :: Monoid (Last a) where
   mempty = Last Nothing
+
+instance altLast :: Alt Last where
+  alt = append
+
+instance plusLast :: Plus Last where
+  empty = mempty
+
+instance alternativeLast :: Alternative Last
+
+instance monadZeroLast :: MonadZero Last
