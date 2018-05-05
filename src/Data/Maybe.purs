@@ -153,7 +153,7 @@ instance monadZeroMaybe :: MonadZero Maybe
 -- |
 -- | ``` purescript
 -- | f <<= Nothing = Nothing
--- | f <<= Just x = Just (f x)
+-- | f <<= x = Just (f x)
 -- | ```
 instance extendMaybe :: Extend Maybe where
   extend _ Nothing  = Nothing
