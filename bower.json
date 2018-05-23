@@ -1,8 +1,7 @@
 {
   "name": "purescript-maybe",
   "homepage": "https://github.com/purescript/purescript-maybe",
-  "description": "Optional values",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git://github.com/purescript/purescript-maybe.git"
@@ -17,9 +16,9 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-prelude": "purescript/purescript-prelude#compiler/0.12",
-    "purescript-control": "purescript/purescript-control#compiler/0.12",
-    "purescript-invariant": "purescript/purescript-invariant#compiler/0.12",
-    "purescript-newtype": "purescript/purescript-newtype#compiler/0.12"
+    "purescript-prelude": "^4.0.0",
+    "purescript-control": "^4.0.0",
+    "purescript-invariant": "^4.0.0",
+    "purescript-newtype": "^3.0.0"
   }
 }
