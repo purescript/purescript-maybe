@@ -7,7 +7,6 @@ import Control.MonadZero (class MonadZero, class Alternative, class Plus, class 
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
-import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (class Newtype)
 import Data.Ord (class Ord1)
 
