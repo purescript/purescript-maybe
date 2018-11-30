@@ -69,11 +69,10 @@ instance applyMaybe :: Apply Maybe where
   apply Nothing   _ = Nothing
 
 -- | The `Applicative` instance enables lifting of values into `Maybe` with the
--- | `pure` or `return` function (`return` is an alias for `pure`):
+-- | `pure` function:
 -- |
 -- | ``` purescript
 -- | pure x :: Maybe _ == Just x
--- | return x :: Maybe _ == Just x
 -- | ```
 -- |
 -- | Combining `Functor`'s `<$>` with `Apply`'s `<*>` and `Applicative`'s
