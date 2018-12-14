@@ -14,8 +14,8 @@ import Data.Ord (class Ord1)
 -- |
 -- | ``` purescript
 -- | Last (Just x) <> Last (Just y) == Last (Just y)
--- | Last (Just x) <> Nothing == Last (Just x)
--- | Last Nothing <> Nothing == Last Nothing
+-- | Last (Just x) <> Last Nothing == Last (Just x)
+-- | Last Nothing <> Last Nothing == Last Nothing
 -- | mempty :: Last _ == Last Nothing
 -- | ```
 newtype Last a = Last (Maybe a)
