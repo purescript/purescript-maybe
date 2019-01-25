@@ -231,6 +231,17 @@ maybe' :: forall a b. (Unit -> b) -> (a -> b) -> Maybe a -> b
 maybe' g _ Nothing = g unit
 maybe' _ f (Just a) = f a
 
+-- | Takes an initial value, a function, and a `Maybe` value. If the `Maybe`
+-- | value is `Nothing` the initial value is returned, otherwse the function is
+-- | applied to the initial value and the value inside the `Just`.
+-- |
+-- | ``` purescript
+-- | foldMaybe x f Nothing = x
+-- | foldMaybe x f (Just y) = f x y
+-- | ```
+foldMaybe :: forall a b. a -> (a -> b -> a) -> Maybe b -> a
+foldMaybe a f = maybe a (f a)
+
 -- | Takes a default value, and a `Maybe` value. If the `Maybe` value is
 -- | `Nothing` the default value is returned, otherwise the value inside the
 -- | `Just` is returned.
