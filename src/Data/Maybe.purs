@@ -274,5 +274,5 @@ fromJust (Just x) = x
 -- | optional empty = pure Nothing
 -- | optional (pure x) = pure (Just x)
 -- | ```
-optional :: forall f a. Alternative f => f a -> f (Maybe a)
+optional :: forall f a. Alt f => Applicative f => f a -> f (Maybe a)
 optional a = map Just a <|> pure Nothing
