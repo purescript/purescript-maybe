@@ -141,6 +141,23 @@ instance bindMaybe :: Bind Maybe where
 -- | ``` purescript
 -- | x >>= (\x' -> y >>= (\y' -> pure (f x' y')))
 -- | ```
+-- |
+-- | and is conceptually similar to writing...
+-- | ```
+-- | var x = // ...
+-- | if x.isNothing {
+-- |   return x; // Nothing
+-- | } else {
+-- |   var x' = x.unwrapJust;
+-- |   var y = // ...
+-- |   if y.isNothing {
+-- |     return y; // Nothing
+-- |   } else {
+-- |     var y' = y.unwrapJust;
+-- |     return wrapIntoJust(f(x', y'));
+-- |   }
+-- | }
+-- | ```
 instance monadMaybe :: Monad Maybe
 
 instance monadZeroMaybe :: MonadZero Maybe
