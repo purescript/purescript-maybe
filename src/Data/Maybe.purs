@@ -141,6 +141,16 @@ instance bindMaybe :: Bind Maybe where
 -- | ``` purescript
 -- | x >>= (\x' -> y >>= (\y' -> pure (f x' y')))
 -- | ```
+-- |
+-- | Which is equivalent to:
+-- |
+-- | ``` purescript
+-- | case x of
+-- |   Nothing -> Nothing
+-- |   Just x' -> case y of
+-- |     Nothing -> Nothing
+-- |     Just y' -> Just (f x' y')
+-- | ```
 instance monadMaybe :: Monad Maybe
 
 instance monadZeroMaybe :: MonadZero Maybe
