@@ -142,6 +142,16 @@ instance bindMaybe :: Bind Maybe where
 -- | x >>= (\x' -> y >>= (\y' -> pure (f x' y')))
 -- | ```
 -- |
+-- | Which is equivalent to:
+-- |
+-- | ``` purescript
+-- | case x of
+-- |   Nothing -> Nothing
+-- |   Just x' -> case y of
+-- |     Nothing -> Nothing
+-- |     Just y' -> Just (f x' y')
+-- | ```
+-- |
 -- | and is conceptually similar to writing...
 -- | ```
 -- | var x = // ...
