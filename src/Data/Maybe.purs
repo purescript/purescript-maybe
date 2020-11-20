@@ -280,9 +280,23 @@ fromJust (Just x) = x
 
 -- | One or none.
 -- |
--- | ``` purescript
+-- | ```purescript
 -- | optional empty = pure Nothing
--- | optional (pure x) = pure (Just x)
+-- | ```
+-- |
+-- | The behaviour of `optional (pure x)` depends on whether the `Alt` instance
+-- | satisfy the left catch law (`pure a <|> b = pure a`).
+-- |
+-- | `Either e` does:
+-- |
+-- | ```purescript
+-- | optional (Right x) = Right (Just x)
+-- | ```
+-- |
+-- | But `Array` does not:
+-- |
+-- | ```purescript
+-- | optional [x] = [Just x, Nothing]
 -- | ```
 optional :: forall f a. Alt f => Applicative f => f a -> f (Maybe a)
 optional a = map Just a <|> pure Nothing
