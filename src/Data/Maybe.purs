@@ -10,6 +10,7 @@ import Control.Plus (class Plus)
 
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant, imapF)
+import Data.Generic.Rep (class Generic)
 import Data.Ord (class Ord1)
 
 -- | The `Maybe` type is used to represent optional values and can be seen as
@@ -215,6 +216,8 @@ instance boundedMaybe :: Bounded a => Bounded (Maybe a) where
 instance showMaybe :: Show a => Show (Maybe a) where
   show (Just x) = "(Just " <> show x <> ")"
   show Nothing  = "Nothing"
+
+derive instance genericMaybe :: Generic (Maybe a) _
 
 -- | Takes a default value, a function, and a `Maybe` value. If the `Maybe`
 -- | value is `Nothing` the default value is returned, otherwise the function
