@@ -57,6 +57,7 @@ Other improvements:
 ## [v1.0.0](https://github.com/purescript/purescript-maybe/releases/tag/v1.0.0) - 2016-06-01
 
 - Updated for PureScript 0.9.1
+  
   This release is intended for the PureScript 0.9.1 compiler and newer. **Note**: The v1.0.0 tag is not meant to indicate the library is “finished”, the core libraries are all being bumped to this for the 0.9 compiler release so as to use semver more correctly.
 - Updated for new `Prelude` class hierarchies
 
@@ -83,6 +84,7 @@ Other improvements:
 ## [v0.3.0](https://github.com/purescript/purescript-maybe/releases/tag/v0.3.0) - 2015-06-30
 
 - Updated for PureScript 0.7
+
   This release works with versions 0.7.\* of the PureScript compiler. It will not work with older versions. If you are using an older version, you should require an older, compatible version of this library.
 
 ## [v0.2.2](https://github.com/purescript/purescript-maybe/releases/tag/v0.2.2) - 2015-03-17
