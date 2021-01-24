@@ -5,20 +5,28 @@ Notable changes to this project are documented in this file. The format is based
 ## [Unreleased]
 
 Breaking changes:
+- Added support for PureScript 0.14 and dropped support for all previous versions (#50)
+- Ported the `generics-rep` package's `Maybe` instance to this package (#55)
 
 New features:
 
 Bugfixes:
+- Relaxed constraints on `optional`, which doesn't need the `Plus` part of `Alternative` (#47)
 
 Other improvements:
+- Fixed documentation comment for the `Last` newtype, which omitted the constructor (#42)
+- Documented the relationship of `optional` to the left catch law (#52)
+- Demonstrated how `do` notation for `Maybe` is similar to nested if-then-else statements (#48)
+- Migrated CI to GitHub Actions and updated installation instructions to use Spago (#54)
+- Added a changelog and pull request template (#56)
 
 ## [v4.0.1](https://github.com/purescript/purescript-maybe/releases/tag/v4.0.1) - 2018-12-01
 
-Removed old reference to `return` from doc comment (@gasi)
+- Removed an old reference to `return` from the `Applicative` instance's documentation (@gasi)
 
 ## [v4.0.0](https://github.com/purescript/purescript-maybe/releases/tag/v4.0.0) - 2018-05-23
 
-Updated for PureScript 0.12
+- Updated for PureScript 0.12
 
 ## [v3.1.0](https://github.com/purescript/purescript-maybe/releases/tag/v3.1.0) - 2018-04-07
 
@@ -31,7 +39,7 @@ Updated for PureScript 0.12
 
 ## [v2.1.1](https://github.com/purescript/purescript-maybe/releases/tag/v2.1.1) - 2017-03-04
 
-- Fix lower bound of prelude dependency (@aij)
+- Fixed lower bound of `prelude` dependency (@aij)
 
 ## [v2.1.0](https://github.com/purescript/purescript-maybe/releases/tag/v2.1.0) - 2017-03-02
 
@@ -39,7 +47,7 @@ Updated for PureScript 0.12
 
 ## [v2.0.1](https://github.com/purescript/purescript-maybe/releases/tag/v2.0.1) - 2016-10-23
 
-- Fixed ordering of `Just` and `Nothing` so that `∀ a. Nothing < Just a`
+- Fixed ordering of `Just` and `Nothing` so that `forall a. Nothing < Just a`
 
 ## [v2.0.0](https://github.com/purescript/purescript-maybe/releases/tag/v2.0.0) - 2016-10-02
 
@@ -48,17 +56,10 @@ Updated for PureScript 0.12
 
 ## [v1.0.0](https://github.com/purescript/purescript-maybe/releases/tag/v1.0.0) - 2016-06-01
 
-This release is intended for the PureScript 0.9.1 compiler and newer.
-
-**Note**: The v1.0.0 tag is not meant to indicate the library is “finished”, the core libraries are all being bumped to this for the 0.9 compiler release so as to use semver more correctly.
-
-## [v1.0.0-rc.2](https://github.com/purescript/purescript-maybe/releases/tag/v1.0.0-rc.2) - 2016-03-20
-
+- Updated for PureScript 0.9.1
+  
+  This release is intended for the PureScript 0.9.1 compiler and newer. **Note**: The v1.0.0 tag is not meant to indicate the library is “finished”, the core libraries are all being bumped to this for the 0.9 compiler release so as to use semver more correctly.
 - Updated for new `Prelude` class hierarchies
-
-## [v1.0.0-rc.1](https://github.com/purescript/purescript-maybe/releases/tag/v1.0.0-rc.1) - 2016-03-13
-
-- Release candidate for the psc 0.8+ core libraries
 
 ## [v0.3.5](https://github.com/purescript/purescript-maybe/releases/tag/v0.3.5) - 2015-11-15
 
@@ -74,7 +75,7 @@ This release is intended for the PureScript 0.9.1 compiler and newer.
 
 ## [v0.3.2](https://github.com/purescript/purescript-maybe/releases/tag/v0.3.2) - 2015-07-07
 
-Fixed the `Semigroup` behaviour for `Maybe`. This is technically a breaking change, but only because `v0.3.0` and `v0.3.1` had the improper behaviour, all previous versions behaved this way.
+- Fixed the `Semigroup` behaviour for `Maybe`. This is technically a breaking change, but only because `v0.3.0` and `v0.3.1` had the improper behaviour. All previous versions behaved this way.
 
 ## [v0.3.1](https://github.com/purescript/purescript-maybe/releases/tag/v0.3.1) - 2015-07-02
 
@@ -82,15 +83,13 @@ Fixed the `Semigroup` behaviour for `Maybe`. This is technically a breaking chan
 
 ## [v0.3.0](https://github.com/purescript/purescript-maybe/releases/tag/v0.3.0) - 2015-06-30
 
-This release works with versions 0.7.\* of the PureScript compiler. It will not work with older versions. If you are using an older version, you should require an older, compatible version of this library.
+- Updated for PureScript 0.7
 
-## [v0.3.0-rc.1](https://github.com/purescript/purescript-maybe/releases/tag/v0.3.0-rc.1) - 2015-06-06
-
-Initial release candidate of the library intended for the 0.7 compiler.
+  This release works with versions 0.7.\* of the PureScript compiler. It will not work with older versions. If you are using an older version, you should require an older, compatible version of this library.
 
 ## [v0.2.2](https://github.com/purescript/purescript-maybe/releases/tag/v0.2.2) - 2015-03-17
 
-Update docs
+- Updated docs
 
 ## [v0.2.1](https://github.com/purescript/purescript-maybe/releases/tag/v0.2.1) - 2014-09-03
 
@@ -98,7 +97,7 @@ Update docs
 
 ## [v0.2.0](https://github.com/purescript/purescript-maybe/releases/tag/v0.2.0) - 2014-08-11
 
-- Add `Alt`, `Plus`, `MonadPlus`, update `Alternative` (@garyb)
+- Added `Alt`, `Plus`, and `MonadPlus`, and updated `Alternative` (@garyb)
 
 ## [v0.1.3](https://github.com/purescript/purescript-maybe/releases/tag/v0.1.3) - 2014-05-22
 
@@ -106,13 +105,12 @@ Update docs
 
 ## [v0.1.2](https://github.com/purescript/purescript-maybe/releases/tag/v0.1.2) - 2014-04-25
 
-
+- Removed some test-related code and moved it to core-tests
 
 ## [v0.1.1](https://github.com/purescript/purescript-maybe/releases/tag/v0.1.1) - 2014-04-10
 
-
+- Tweaked the `bower.json` file
 
 ## [v0.1.0](https://github.com/purescript/purescript-maybe/releases/tag/v0.1.0) - 2014-04-10
 
-
-
+- Initial versioned release
