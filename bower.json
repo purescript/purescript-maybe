@@ -4,7 +4,7 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git://github.com/purescript/purescript-maybe.git"
+    "url": "https://github.com/purescript/purescript-maybe.git"
   },
   "ignore": [
     "**/.*",
@@ -16,9 +16,9 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-prelude": "master",
-    "purescript-control": "master",
-    "purescript-invariant": "master",
-    "purescript-newtype": "master"
+    "purescript-control": "^5.0.0",
+    "purescript-invariant": "^5.0.0",
+    "purescript-newtype": "^4.0.0",
+    "purescript-prelude": "^5.0.0"
   }
 }
