@@ -190,6 +190,16 @@ instance semigroupMaybe :: Semigroup a => Semigroup (Maybe a) where
 instance monoidMaybe :: Semigroup a => Monoid (Maybe a) where
   mempty = Nothing
 
+instance semiringMaybe :: Semiring a => Semiring (Maybe a) where
+  zero = Nothing
+  one = Just one
+
+  add Nothing y = y
+  add x Nothing = x
+  add (Just x) (Just y) = Just (add x y)
+
+  mul x y = mul <$> x <*> y
+
 -- | The `Eq` instance allows `Maybe` values to be checked for equality with
 -- | `==` and inequality with `/=` whenever there is an `Eq` instance for the
 -- | type the `Maybe` contains.
