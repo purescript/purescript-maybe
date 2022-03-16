@@ -2,8 +2,10 @@ module Data.Maybe.Last where
 
 import Prelude
 
+import Control.Alt (class Alt)
+import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
-import Control.MonadZero (class MonadZero, class Alternative, class Plus, class Alt)
+import Control.Plus (class Plus)
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
@@ -63,5 +65,3 @@ instance plusLast :: Plus Last where
   empty = mempty
 
 instance alternativeLast :: Alternative Last
-
-instance monadZeroLast :: MonadZero Last

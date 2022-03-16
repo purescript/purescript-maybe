@@ -2,8 +2,11 @@ module Data.Maybe.First where
 
 import Prelude
 
+import Control.Alt (class Alt)
+import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
-import Control.MonadZero (class MonadZero, class Alternative, class Plus, class Alt)
+import Control.Plus (class Plus)
+
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
@@ -63,5 +66,3 @@ instance plusFirst :: Plus First where
   empty = mempty
 
 instance alternativeFirst :: Alternative First
-
-instance monadZeroFirst :: MonadZero First
