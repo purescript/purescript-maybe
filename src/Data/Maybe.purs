@@ -5,7 +5,6 @@ import Prelude
 import Control.Alt (class Alt, (<|>))
 import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
-import Control.MonadZero (class MonadZero)
 import Control.Plus (class Plus)
 
 import Data.Eq (class Eq1)
@@ -153,8 +152,6 @@ instance bindMaybe :: Bind Maybe where
 -- |     Just y' -> Just (f x' y')
 -- | ```
 instance monadMaybe :: Monad Maybe
-
-instance monadZeroMaybe :: MonadZero Maybe
 
 -- | The `Extend` instance allows sequencing of `Maybe` values and functions
 -- | that accept a `Maybe a` and return a non-`Maybe` result using the
