@@ -16,9 +16,9 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-control": "master",
-    "purescript-invariant": "master",
-    "purescript-newtype": "master",
-    "purescript-prelude": "master"
+    "purescript-control": "^6.0.0",
+    "purescript-invariant": "^6.0.0",
+    "purescript-newtype": "^5.0.0",
+    "purescript-prelude": "^6.0.0"
   }
 }
