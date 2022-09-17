@@ -7,10 +7,10 @@ import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
 import Control.Plus (class Plus)
 
-import Data.Eq (class Eq1)
-import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Debug (class Debug, debug)
 import Data.Debug.Type as D
+import Data.Eq (class Eq1)
+import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Generic.Rep (class Generic)
 import Data.Ord (class Ord1)
 
