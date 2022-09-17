@@ -9,6 +9,8 @@ import Control.Plus (class Plus)
 
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant, imapF)
+import Data.Debug (class Debug, debug)
+import Data.Debug.Type as D
 import Data.Generic.Rep (class Generic)
 import Data.Ord (class Ord1)
 
@@ -225,6 +227,11 @@ instance showMaybe :: Show a => Show (Maybe a) where
   show Nothing  = "Nothing"
 
 derive instance genericMaybe :: Generic (Maybe a) _
+
+instance Debug a => Debug (Maybe a) where
+  debug = case _ of
+    Nothing -> D.constructor "Nothing" []
+    Just a -> D.constructor "Just" [ debug a ]
 
 -- | Takes a default value, a function, and a `Maybe` value. If the `Maybe`
 -- | value is `Nothing` the default value is returned, otherwise the function
