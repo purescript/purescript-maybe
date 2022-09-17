@@ -6,6 +6,8 @@ import Control.Alt (class Alt)
 import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
 import Control.Plus (class Plus)
+import Data.Debug (class Debug, debug)
+import Data.Debug.Type as D
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
@@ -65,3 +67,6 @@ instance plusLast :: Plus Last where
   empty = mempty
 
 instance alternativeLast :: Alternative Last
+
+instance Debug a => Debug (Last a) where
+  debug (Last a) = D.constructor "Last" [ debug a ]
