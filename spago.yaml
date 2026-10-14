@@ -1,0 +1,12 @@
+package:
+  name: maybe
+  description: Optional values
+  build:
+    strict: true
+    pedanticPackages: true
+  dependencies:
+    - control: ">=6.0.0 <7.0.0"
+    - invariant: ">=6.0.0 <7.0.0"
+    - newtype: ">=5.0.0 <6.0.0"
+    - prelude: ">=6.0.0 <7.0.0"
+workspace: {}
