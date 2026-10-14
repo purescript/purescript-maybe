@@ -6,7 +6,6 @@ import Control.Alt (class Alt)
 import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
 import Control.Plus (class Plus)
-
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))

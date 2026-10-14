@@ -17,10 +17,12 @@ Other improvements:
 ## [v6.0.0](https://github.com/purescript/purescript-maybe/releases/tag/v6.0.0) - 2022-04-27
 
 Breaking changes:
+
 - Update project and deps to PureScript v0.15.0 (#60 by @JordanMartinez)
 - Drop deprecated `MonadZero` instance (#61 by @JordanMartinez)
 
 New features:
+
 - Added `Semiring` instance (#59)
 
 Bugfixes:
@@ -30,15 +32,18 @@ Other improvements:
 ## [v5.0.0](https://github.com/purescript/purescript-maybe/releases/tag/v5.0.0) - 2021-02-26
 
 Breaking changes:
+
 - Added support for PureScript 0.14 and dropped support for all previous versions (#50)
 - Ported the `generics-rep` package's `Maybe` instance to this package (#55)
 
 New features:
 
 Bugfixes:
+
 - Relaxed constraints on `optional`, which doesn't need the `Plus` part of `Alternative` (#47)
 
 Other improvements:
+
 - Fixed documentation comment for the `Last` newtype, which omitted the constructor (#42)
 - Documented the relationship of `optional` to the left catch law (#52)
 - Demonstrated how `do` notation for `Maybe` is similar to nested if-then-else statements (#48)
@@ -82,8 +87,9 @@ Other improvements:
 ## [v1.0.0](https://github.com/purescript/purescript-maybe/releases/tag/v1.0.0) - 2016-06-01
 
 - Updated for PureScript 0.9.1
-  
+
   This release is intended for the PureScript 0.9.1 compiler and newer. **Note**: The v1.0.0 tag is not meant to indicate the library is “finished”, the core libraries are all being bumped to this for the 0.9 compiler release so as to use semver more correctly.
+
 - Updated for new `Prelude` class hierarchies
 
 ## [v0.3.5](https://github.com/purescript/purescript-maybe/releases/tag/v0.3.5) - 2015-11-15
