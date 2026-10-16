@@ -71,7 +71,7 @@ instance applyMaybe :: Apply Maybe where
 -- | `pure` function:
 -- |
 -- | ``` purescript
--- | pure x :: Maybe _ == Just x
+-- | (pure x :: Maybe _) == Just x
 -- | ```
 -- |
 -- | Combining `Functor`'s `<$>` with `Apply`'s `<*>` and `Applicative`'s

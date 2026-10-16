@@ -18,7 +18,7 @@ import Data.Ord (class Ord1)
 -- | First (Just x) <> First (Just y) == First (Just x)
 -- | First Nothing <> First (Just y) == First (Just y)
 -- | First Nothing <> First Nothing == First Nothing
--- | mempty :: First _ == First Nothing
+-- | (mempty :: First _) == First Nothing
 -- | ```
 newtype First a = First (Maybe a)
 
