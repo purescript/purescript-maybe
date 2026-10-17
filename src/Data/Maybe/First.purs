@@ -6,7 +6,6 @@ import Control.Alt (class Alt)
 import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
 import Control.Plus (class Plus)
-
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant)
 import Data.Maybe (Maybe(..))
@@ -19,7 +18,7 @@ import Data.Ord (class Ord1)
 -- | First (Just x) <> First (Just y) == First (Just x)
 -- | First Nothing <> First (Just y) == First (Just y)
 -- | First Nothing <> First Nothing == First Nothing
--- | mempty :: First _ == First Nothing
+-- | (mempty :: First _) == First Nothing
 -- | ```
 newtype First a = First (Maybe a)
 
