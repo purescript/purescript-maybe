@@ -6,7 +6,6 @@ import Control.Alt (class Alt, (<|>))
 import Control.Alternative (class Alternative)
 import Control.Extend (class Extend)
 import Control.Plus (class Plus)
-
 import Data.Eq (class Eq1)
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Generic.Rep (class Generic)
@@ -31,7 +30,7 @@ data Maybe a = Nothing | Just a
 -- | ```
 instance functorMaybe :: Functor Maybe where
   map fn (Just x) = Just (fn x)
-  map _  _        = Nothing
+  map _ _ = Nothing
 
 -- | The `Apply` instance allows functions contained within a `Just` to
 -- | transform a value contained within a `Just` using the `apply` operator:
@@ -66,13 +65,13 @@ instance functorMaybe :: Functor Maybe where
 -- | ```
 instance applyMaybe :: Apply Maybe where
   apply (Just fn) x = fn <$> x
-  apply Nothing   _ = Nothing
+  apply Nothing _ = Nothing
 
 -- | The `Applicative` instance enables lifting of values into `Maybe` with the
 -- | `pure` function:
 -- |
 -- | ``` purescript
--- | pure x :: Maybe _ == Just x
+-- | (pure x :: Maybe _) == Just x
 -- | ```
 -- |
 -- | Combining `Functor`'s `<$>` with `Apply`'s `<*>` and `Applicative`'s
@@ -101,7 +100,7 @@ instance applicativeMaybe :: Applicative Maybe where
 -- | ```
 instance altMaybe :: Alt Maybe where
   alt Nothing r = r
-  alt l       _ = l
+  alt l _ = l
 
 -- | The `Plus` instance provides a default `Maybe` value:
 -- |
@@ -124,7 +123,7 @@ instance alternativeMaybe :: Alternative Maybe
 -- | ```
 instance bindMaybe :: Bind Maybe where
   bind (Just x) k = k x
-  bind Nothing  _ = Nothing
+  bind Nothing _ = Nothing
 
 -- | The `Monad` instance guarantees that there are both `Applicative` and
 -- | `Bind` instances for `Maybe`. This also enables the `do` syntactic sugar:
@@ -162,8 +161,8 @@ instance monadMaybe :: Monad Maybe
 -- | f <<= x = Just (f x)
 -- | ```
 instance extendMaybe :: Extend Maybe where
-  extend _ Nothing  = Nothing
-  extend f x        = Just (f x)
+  extend _ Nothing = Nothing
+  extend f x = Just (f x)
 
 instance invariantMaybe :: Invariant Maybe where
   imap = imapF
@@ -202,7 +201,8 @@ instance semiringMaybe :: Semiring a => Semiring (Maybe a) where
 -- | type the `Maybe` contains.
 derive instance eqMaybe :: Eq a => Eq (Maybe a)
 
-instance eq1Maybe :: Eq1 Maybe where eq1 = eq
+instance eq1Maybe :: Eq1 Maybe where
+  eq1 = eq
 
 -- | The `Ord` instance allows `Maybe` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
@@ -211,7 +211,8 @@ instance eq1Maybe :: Eq1 Maybe where eq1 = eq
 -- | `Nothing` is considered to be less than any `Just` value.
 derive instance ordMaybe :: Ord a => Ord (Maybe a)
 
-instance ord1Maybe :: Ord1 Maybe where compare1 = compare
+instance ord1Maybe :: Ord1 Maybe where
+  compare1 = compare
 
 instance boundedMaybe :: Bounded a => Bounded (Maybe a) where
   top = Just top
@@ -222,7 +223,7 @@ instance boundedMaybe :: Bounded a => Bounded (Maybe a) where
 -- | contains.
 instance showMaybe :: Show a => Show (Maybe a) where
   show (Just x) = "(Just " <> show x <> ")"
-  show Nothing  = "Nothing"
+  show Nothing = "Nothing"
 
 derive instance genericMaybe :: Generic (Maybe a) _
 

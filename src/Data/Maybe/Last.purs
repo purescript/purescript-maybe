@@ -18,7 +18,7 @@ import Data.Ord (class Ord1)
 -- | Last (Just x) <> Last (Just y) == Last (Just y)
 -- | Last (Just x) <> Last Nothing == Last (Just x)
 -- | Last Nothing <> Last Nothing == Last Nothing
--- | mempty :: Last _ == Last Nothing
+-- | (mempty :: Last _) == Last Nothing
 -- | ```
 newtype Last a = Last (Maybe a)
 
