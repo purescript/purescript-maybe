@@ -155,3 +155,5 @@ Other improvements:
 ## [v0.1.0](https://github.com/purescript/purescript-maybe/releases/tag/v0.1.0) - 2014-04-10
 
 - Initial versioned release
+
+[Unreleased]: https://github.com/purescript/purescript-maybe/compare/v6.0.1...HEAD
